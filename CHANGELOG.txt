@@ -1,0 +1,54 @@
+------------- Changelog del ManagerMods
+____________________________________________________
+
+-- 2.0 SQLVersion
+	Cambiar de xml a sql
+		Reescrito BackEnd y optimizado
+	Creado importador de mods
+		Para crear y editar server
+	Mejoras varias
+
+IMPORTANTE
+	Las versiones 1.x y 2.x no son compatibles entre si, se facilitará un desinstalador para 1.x
+
+
+---------------------------------------------------------------------
+--  0.5.0 alpha --
+	Lanzamiento de la aplicación a alpha testers
+--  0.5.1 alpha
+	Ahora al cambiar el server te devuelve a la pagina principal
+	Encontrado bug en xml con espacio en blanco //solucionado
+--  0.6.0 alpha
+	Mejorado el sistema de carpetas
+		Ahora si la carpeta ya se encuentra en appdata no se crea y copia los mods
+--  0.6.1 alpha
+	cambiando objetos de tk a ttk /se ve mas bonito
+	+investigar más acerca de ttk y sus configuraciones // crear un script tipo css para los styles
+--  0.6.2 alpha
+	Añadido icono de minecraft
+--  0.6.5 alpha
+	Arreglado si se selecciona la carpeta de mods
+--  0.7.0 beta
+	+en la pantalla de ver servidores, resaltar el activado? //pospuesto
+	añadida funcion de eliminar servidor, en ver servidores
+	creado archivo para los styles de ttk
+-- 0.7.5 beta
+	Añadido servidor Vanilla como inicial
+		No se puede borrar
+	Añadido fuente del maicra
+-- 0.8.0 beta
+	+probar en betatesters
+	Impedido nombres repetidos
+	Reorganizada la estructura de archivos para que sea mas limpia
+-- 0.9.0 beta
+	Añadida barra de carga
+-- 0.9.5
+	+Comprobar compatibilidad con Linux
+	+Comprobar compatibilidad con Mac, pero no se como
+	Sera hacerlo con el instalador grafico, no encuentro que haga falta en otro lado la diferencia
+
+-- 1.0.0 release
+	+Publicar para que todo el mundo lo pueda ver, ahora como hacerlo...
+	+corregir bugs y limpieza de codigo
+	+hacer mas liviano el python embedido?
+	+Crear instalador grafico

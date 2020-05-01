@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF_8'?>
+<root>
+	<nameServers>Vanilla,XanaCraft,yuio</nameServers>
+	<ActualMods>Vanilla</ActualMods>
+	<Servers>
+		<Vanilla>
+			<version>0</version>
+			<numMods>0</numMods>
+			<rutaCarpeta />
+		</Vanilla>
+	<XanaCraft><version>666</version><numMods>0</numMods><rutaCarpeta /></XanaCraft>
+	<yuio><version>789</version><numMods>0</numMods><rutaCarpeta /></yuio></Servers>
+
+</root>
