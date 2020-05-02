@@ -7,9 +7,13 @@ Para Windows recomiendo descargarlo desde el siguiente enlace: https://github.co
 Para Linux puedes clonar este git con "git clone https://github.com/XanaDevelops/ModManager.git" o descargar https://github.com/XanaDevelops/ModManager/archive/master.zip
 
 Para Mac puedes clonar este git descargandotelo desde https://github.com/XanaDevelops/ModManager/archive/master.zip
+Además tendras que descargarte python3 desde la pagina oficial
 
 ----Como usar:
-  1.Ejecutar Instalador.py o Ins
+  1.Ejecutar Instalador.py o Instalador.exe (solo Windows)
+  2.Pulsar la tecla I para instalar
+  3.Al finalizar se creará un acceso directo en el escritorio.
+  4.Ejecuta el acceso directo y el programa saldrá
 
 
 Daniel García Vázquez ©2020 
