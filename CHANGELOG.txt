@@ -7,6 +7,7 @@ ____________________________________________________
 	Creado importador de mods
 		Para crear y editar server
 	Mejoras varias
+	El instalador es multiplataforma, tanto como ModManager
 
 IMPORTANTE
 	Las versiones 1.x y 2.x no son compatibles entre si, se facilitará un desinstalador para 1.x
