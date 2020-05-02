@@ -3,7 +3,7 @@ Manager de Mods para Minecraft
 Este es el ModManager que he creado para que l@s jugador@s de Minecraft dejen de preocuparse por mover mods de una carpeta a otra.
 Este programa lo soluciona de una manera rapida y minimalista.
 
-Para Windows recomiendo descargarlo desde el siguiente enlace: <inserte enlace>
+Para Windows recomiendo descargarlo desde el siguiente enlace: https://github.com/XanaDevelops/ModManager/releases
 Para Linux puedes clonar este git con "git clone https://github.com/XanaDevelops/ModManager.git" o descargar https://github.com/XanaDevelops/ModManager/archive/master.zip
 
 Para Mac puedes clonar este git descargandotelo desde https://github.com/XanaDevelops/ModManager/archive/master.zip
