@@ -125,7 +125,7 @@ class Instalador():
         if(self.modo == "EXE"):
             shutil.copy("Data/ModManager.exe", self.path)
         elif self.modo == "PY":
-            shutil.copy("Data/FrontEnd.pyw", self.path)
+            shutil.copy("Data/FrontEnd.py", self.path)
             shutil.copy("Data/BackEnd.py", self.path)
             shutil.copy("Data/ModImporter.py", self.path)
             
@@ -136,7 +136,7 @@ class Instalador():
             if(self.modo == "EXE"):
                 link.write("@echo off \n%AppData%/.minecraft/mods/ModManager.exe")
             elif(self.modo == "PY"):
-                link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart pythonw FrontEnd.pyw")
+                link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart pythonw FrontEnd.py")
             link.close()
         else: ## linux
             link = open("/home/{os.getlogin()}/Desktop/Mod Manager.sh", mode="w+")
@@ -144,7 +144,7 @@ class Instalador():
                 #link.write("@echo off \n ~/.minecraft/mods/ModManager.exe")
                 pass
             elif(self.mode == "PY"):
-                link.write("python3 /home/{os.getlogin()}//.minecraft/mods/FrontEnd.pyw")
+                link.write("python3 /home/{os.getlogin()}//.minecraft/mods/FrontEnd.py")
             link.close()
             os.popen("chmod +x 'Mod Manager.sh'")
             
@@ -162,8 +162,8 @@ class Instalador():
             shutil.rmtree(self.path+"/python")
             shutil.rmtree(self.path+"/__pycache__")
             print("borrando archivos del programa")
-            os.remove(self.path+"/FrontEnd.pyw")
-            os.remove(self.path+"/BackEnd.pyw")
+            os.remove(self.path+"/FrontEnd.py")
+            os.remove(self.path+"/BackEnd.py")
             os.remove(self.path+"/ModManager.bat")
         else:
             print("procediendo a la desinstalación de 2.x ...")
@@ -177,9 +177,9 @@ class Instalador():
             except:
                 pass
             try:
-                os.remove(self.path+"/FrontEnd.pyw")
-                os.remove(self.path+"/BackEnd.pyw")
-                os.remove(self.path+"/ModManager.bat")
+                os.remove(self.path+"/FrontEnd.py")
+                os.remove(self.path+"/BackEnd.py")
+                os.remove(self.path+"/ModImporter.py")
             except:
                 pass
             
