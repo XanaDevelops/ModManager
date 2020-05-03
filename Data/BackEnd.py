@@ -7,6 +7,7 @@
 
 import sqlite3 as sql
 import os, shutil
+import platform as pf
 
 class BackEnd():
     def __init__(self):
@@ -26,28 +27,34 @@ class BackEnd():
 
         self.cursor.execute("SELECT * FROM Servers")
         if(self.cursor.fetchall() == []):
-            self.cursor.execute("INSERT INTO Servers VALUES ('Vanilla', '0.0.0', '0', NULL ,True)")
+            self.cursor.execute("INSERT INTO Servers VALUES ('Vanilla', '0.0.0', '0', NULL ,1)")
         self.connect.commit()
+        self.OS = pf.system()
 
     def CrearServer(self, serverName, version, numMods = 0, origenMods = ""):
         crearCarpeta = True
         modsPath = "None"
         if(numMods != 0):
-            if (f"{os.getcwd()}\\{serverName}" == origenMods):
+            comp = ""
+            if(self.OS == "Windows"):
+                comp = f"{os.getcwd()}\\{serverName}"
+            elif(self.OS == "Linux"):
+                comp = f"{os.getcwd()}/{serverName}"
+            if (comp == origenMods):
                 crearCarpeta = False
             if(crearCarpeta):
                 try:
                     os.mkdir(serverName)
                 except:
                     pass
-            modsPath = os.getcwd()+"\\"+serverName
+            modsPath = os.getcwd()+"/"+serverName
             
             for mod in os.listdir(origenMods):
                 if(os.listdir(origenMods) == os.listdir(modsPath)):## hacer en ModImporter que si se importa de os.getcwd() en vez de crear temp los mueva ahí, solo funciona en modo carpeta y archivos
                    print("Carpetas iguales, no se copia")
                    break
                 if ".jar" in mod:
-                   shutil.copy((origenMods+"\\"+mod), modsPath)
+                   shutil.copy((origenMods+"/"+mod), modsPath)
         
         self.cursor.execute("INSERT INTO Servers VALUES (?,?,?,?,?)",
                             ((serverName, version, numMods, modsPath, False)))
@@ -87,7 +94,7 @@ class BackEnd():
                     if ".jar" in mod:
                         shutil.copy((newData[3]+"\\"+mod),newData[0])
                 
-                modsPath = f"{os.getcwd()}\\{newData[0]}"
+                modsPath = f"{os.getcwd()}/{newData[0]}"
             else:
                 # si ya tenia mods los elimina y copia de la nueva fuente
                 print("Reponer mods")
@@ -99,7 +106,7 @@ class BackEnd():
                     print("nuevo nombre")
                     os.rmdir(oldPathMods)
                     os.mkdir(newData[0])
-                    modsPath = os.getcwd()+"\\"+newData[0]
+                    modsPath = os.getcwd()+"/"+newData[0]
                 else:
                     modsPath = oldPathMods
                 
@@ -148,14 +155,14 @@ class BackEnd():
                 os.remove(mod)
 
         #Ahora cambia la activacion
-        self.cursor.execute("UPDATE Servers set IsActive=False WHERE IsActive=True")
-        self.cursor.execute("UPDATE Servers set IsActive=True WHERE ServerName=?", (serverName,))
+        self.cursor.execute("UPDATE Servers set IsActive=0 WHERE IsActive=1")
+        self.cursor.execute("UPDATE Servers set IsActive=1 WHERE ServerName=?", (serverName,))
 
         ##si tenia mods los copia
         if numMods != "0":
             for mod in os.listdir(modsPath):
                 if ".jar" in mod:
-                    shutil.copy(f"{modsPath}\\{mod}", os.getcwd())
+                    shutil.copy(f"{modsPath}/{mod}", os.getcwd())
         self.connect.commit()
     def VerServers(self):
         self.cursor.execute("SELECT * FROM Servers")

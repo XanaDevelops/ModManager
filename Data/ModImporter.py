@@ -18,6 +18,7 @@ from data.Style import *
 from data.Custom import CustomFont_Label as FontLabel
 
 import os, shutil
+import platform as pf
 
 import zipfile as zipf
 
@@ -44,14 +45,22 @@ class ModImporter(tk.Frame):
         self.version = tk.StringVar(value=ver)
 
         self.serverBorrar = False
-
+        ## se comprueba el SO
+        self.OS = pf.system()
         ##se crea aqui la carpeta temporal...
 
         try:
-            os.mkdir(f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods")
+            if(self.OS == "Windows"):
+                os.mkdir(f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods")
+            elif(self.OS == "Linux"):
+                os.mkdir(f"/home/{os.environ['USER']}/.cache/mods")
         except:
-            shutil.rmtree(f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods")
-            os.mkdir(f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods")
+            if(self.OS == "Windows"):
+                shutil.rmtree(f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods")
+                os.mkdir(f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods")
+            elif(self.OS == "Linux"):
+                shutil.rmtree(f"/home/{os.environ['USER']}/.cache/mods")
+                os.mkdir(f"/home/{os.environ['USER']}/.cache/mods")
 
         ## ahora se crea la pantalla
         #self.frame = self.Constructor()
@@ -137,7 +146,11 @@ class ModImporter(tk.Frame):
                                                           ("Archivo Rar","*.rar")]).name
             print(self.rutaArchivo)
             if self.rutaArchivo != "":
-                path = f"C:/Users/{os.getlogin()}/Appdata/Local/temp"
+                path = ""
+                if(self.OS == "Windows"):
+                    path = f"C:/Users/{os.getlogin()}/Appdata/Local/temp"
+                elif(self.OS == "Linux"):
+                    path = f"/home/{os.environ['USER']}/.cache"
                 
                 try:
                     os.mkdir(f"{path}/mods/")
@@ -171,8 +184,10 @@ class ModImporter(tk.Frame):
                 return
             else:
                 self.ventana.destroy()
-        
-        self.origenMods = f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods"
+        if(self.OS == "Windows"):
+            self.origenMods = f"C:/Users/{os.getlogin()}/Appdata/Local/temp/mods"
+        elif(self.OS == "Linux"):
+            self.origenMods = f"/home/{os.environ['USER']}/.cache/mods"
         
         try:
             os.mkdir(self.origenMods)
