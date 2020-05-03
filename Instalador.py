@@ -21,26 +21,39 @@ Instalador de ModManager 2.x
 
 import os, shutil
 import platform as pf
+import subprocess as subp
 
 
 class Instalador():
     def __init__(self):
         self.path = ""
-
+        self.desktop = "Desktop"
         ## Detectar SO y por ende si .py o exe
         self.OS = pf.system()
+        ## parche para linux
+
         
         if self.OS == "Windows":
             self.path = f"C:/Users/{os.getlogin()}/Appdata/Roaming/.minecraft/mods"
             print("Corriendo en Windows")
         elif self.OS == "Linux":
-            self.path == f"/home/{os.getlogin()}/.minecraft/mods"
+            self.path = f"/home/{os.environ['USER']}/.minecraft/mods"
+            
+            check = open(os.environ["HOME"]+"/.config/user-dirs.dirs")
+            while(True):
+                line = check.readline()
+                if("DESKTOP" in line):
+                    partLine = line.split("=")[1]
+                    self.desktop = os.path.expandvars(partLine[1:len(partLine)-2])
+                    break
+            check.close()
+            print("ruta = " + self.path)	
             print("Linux based detectado")
         elif self.OS == "Darwin":
-            self.path == f"/home/{os.getlogin()}/.minecraft/mods" ## a comprovar
+            self.path = f"/home/{os.getlogin()}/.minecraft/mods" ## a comprovar
             print("Mac detectado")
         else:
-            self.path == f"~/.minecraft/mods"
+            self.path = f"~/.minecraft/mods"
             print("No se ha podido identificar el SO")
         ## detectar si ModManager esta en .exe o .py
             self.modo = "EXE"
@@ -139,15 +152,40 @@ class Instalador():
                 link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart pythonw FrontEnd.py")
             link.close()
         else: ## linux
-            link = open("/home/{os.getlogin()}/Desktop/Mod Manager.sh", mode="w+")
-            if(self.mode == "EXE"):
+            link = open(f"{self.desktop}/Mod Manager.sh", mode="w+")
+            if(self.modo == "EXE"):
                 #link.write("@echo off \n ~/.minecraft/mods/ModManager.exe")
                 pass
-            elif(self.mode == "PY"):
-                link.write("python3 /home/{os.getlogin()}//.minecraft/mods/FrontEnd.py")
+            elif(self.modo == "PY"):
+                link.write(f"cd /home/{os.environ['USER']}/.minecraft/mods/\npython3 FrontEnd.py")
             link.close()
-            os.popen("chmod +x 'Mod Manager.sh'")
-            
+            os.popen(f"chmod +x {self.desktop}/'Mod Manager.sh'")
+            print("Es necesario descargar 2 dependencias para el ModManager, procediendo a su instalación")
+            try:
+                print("Instalando Pillow")
+                subp.run("pip3 install Pillow".split(" "))
+            except:
+                print("ERROR, pip3 no se encuentra instalado, se debe instalar para continuar")
+                print("Se le pedirá su contraseña para descargar 'python3-pip'")
+                try:
+                    subp.run("sudo apt install python3-pip".split(" "))
+                    print("Volviendo a intentar instalar Pillow...")
+                    subp.run("pip3 install Pillow".split(" "))
+                except:
+                    print("ERROR, no se ha podido descargar pip3, se saldrá del instalador...")
+                    self.Pause()
+                    exit()
+            try:
+                import tkinter
+            except:
+                print("Tkinter es necesario para la ejecucion de ModManager")
+                print("Se procederá a su instalacion")
+                try:
+                    subp.run("sudo apt install python3-tk".split(" "))
+                except:
+                    print("No se ha podido instalar Tkinter, abortando")
+                    self.Pause()
+                    exit()       
         print("Instalación completada")
         print("Ahora se saldrá del instalador, que disfrute del programa")
         self.Pause()
@@ -188,9 +226,9 @@ class Instalador():
         if(self.OS == "Windows"):
             os.remove(f"C:/Users/{os.getlogin()}/Desktop/Mod Manager.bat")
         else:
-            os.remove(f"/home/{os.getlogin()}/Desktop/Mod Manager.sh")
+            os.remove(f"{self.desktop}/Mod Manager.sh")
             
-        print("Desinstalación completada")
+        print("Desinstalación completada") 
 
         if(hasExit):
             print()
@@ -218,6 +256,7 @@ class Instalador():
         except KeyboardInterrupt:
             return
         print("Se va actualizar ModManager 2.x a una versión más actual")
+        print("Ten en cuenta que no es lo mismo que instalar")
         print("Los datos no se verán afectados, pero para cancelar pulse ctrl+C o...")
         self.Pause()
         print("Actualizando archivos de programa")
