@@ -1,5 +1,5 @@
 ---
-permalink: /descargas
+permalink: /descargas/
 ---
 <html>
 <head>
