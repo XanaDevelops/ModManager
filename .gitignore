@@ -48,6 +48,8 @@ Temporary Items
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+Data/__pycache__/
+Data/data/__pycache__
 
 # C extensions
 *.so
