@@ -1,6 +1,7 @@
 <html>
   
   <head>
+  <title>ModManager</title>
   </head>
   <body>
     <h1>TEST</h1>
