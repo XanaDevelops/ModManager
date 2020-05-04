@@ -5,7 +5,7 @@
   <body>
     <h1>TEST</h1>
     <h2>Esta es una pagina test</h2>
-    {% highlight python3 %}
+    {% highlight python %}
     def Test(self):
       print(self.test)
     {% endhighlight %}
