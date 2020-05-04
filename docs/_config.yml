@@ -1,2 +1,4 @@
 theme: jekyll-theme-midnight
+#Site settings
 title: ModManager
+description: ModManager es un programa que te permite organizar tus mods de una manera rápida y eficaz
