@@ -8,6 +8,6 @@
     def Test(self):
       print(self.test)
     {% endhighlight %}
-    <a href="descargas.md">Link</a>
+    <a href="descargas">Link</a>
   </body>
 </html>
