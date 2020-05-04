@@ -1,5 +1,5 @@
-<html>
-  
+<!DOCTYPE html>
+<html> 
   <head>
   <title>ModManager</title>
   </head>
