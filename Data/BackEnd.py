@@ -108,7 +108,7 @@ class BackEnd():
                 os.mkdir(newData[0])
                 for mod in os.listdir(newData[3]):
                     if ".jar" in mod:
-                        shutil.copy((newData[3]+"\\"+mod),newData[0])
+                        shutil.copy((newData[3]+"/"+mod),newData[0])
                 
                 modsPath = f"{os.getcwd()}/{newData[0]}"
             else:
