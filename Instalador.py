@@ -147,7 +147,7 @@ class Instalador():
         if(self.OS == "Windows"):
             link = open(f"C:/Users/{os.getlogin()}/Desktop/Mod Manager.bat", mode="w+")
             if(self.modo == "EXE"):
-                link.write("@echo off \n%AppData%/.minecraft/mods/ModManager.exe")
+                link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart ModManager.exe")
             elif(self.modo == "PY"):
                 link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart pythonw FrontEnd.py")
             link.close()
