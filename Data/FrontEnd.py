@@ -41,6 +41,7 @@ class FrontEnd(tk.Frame):
 
         self.verApp = "2.0.0 beta"
         self.parent = parent
+        
 
         self.parent.title("Manager Mods")
         self.parent.geometry("400x300")
@@ -402,6 +403,10 @@ class FrontEnd(tk.Frame):
 if (__name__ == "__main__"):
     vMaestra = tk.Tk()
 
-    frontEnd = FrontEnd(vMaestra)
+    try:
+        frontEnd = FrontEnd(vMaestra)
+    except:
+        mbox.showerror("ERROR", "Ha ocurrido un error")
+        vMaestra.destroy()
 
     vMaestra.mainloop()
