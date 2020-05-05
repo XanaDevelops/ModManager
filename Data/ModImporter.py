@@ -43,6 +43,7 @@ class ModImporter(tk.Frame):
         pass
     def init(self, parent, nameServer = "TESTCRAFT", ver = "666.6.6", edit = False):
         self.ventana = tk.Toplevel()
+        
         self.ventana.title("Importar Mods")
         self.ventana.transient(master = parent)
         self.ventana.grab_set()
@@ -61,6 +62,7 @@ class ModImporter(tk.Frame):
         self.version = tk.StringVar(value=ver)
 
         self.serverBorrar = False
+        self.cancel = False
         ## se comprueba el SO
         self.OS = pf.system()
         ##se crea aqui la carpeta temporal...
@@ -81,7 +83,15 @@ class ModImporter(tk.Frame):
         ## ahora se crea la pantalla
         #self.frame = self.Constructor()
         self.Constructor()
-        #comentar para debug
+
+        ##variables para geometry
+        x = self.ventana.winfo_width()
+        y = self.ventana.winfo_height()
+        
+        xOffset = int(self.ventana.winfo_screenwidth()/4 - x/2)
+        yOffset = int(self.ventana.winfo_screenheight()/4.25 - y/2)
+        self.ventana.geometry(f"+{xOffset}+{yOffset}")
+        #descomentar para debug
         #self.ventana.mainloop()
 
     def ActualizarLista(self):
@@ -355,9 +365,11 @@ class ModImporter(tk.Frame):
             if(r):
                 self.ventana.destroy()
         else:
-            r = mbox.askokcancel("Salir?", "El server será Vanilla, Ok?")
+            r = mbox.askokcancel("Salir?", "No se creará ningún server")
             if(r):
+                self.cancel = True
                 self.ventana.destroy()
+                
         
         
 if(__name__ == "__main__"):

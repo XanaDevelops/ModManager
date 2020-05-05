@@ -17,7 +17,7 @@ FrontEnd de ModManager 2.x
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 ################
-### ManagerMods para MC todas versiones v2.0.0 beta
+### ManagerMods para MC todas versiones v2.0.0
 ### codigo por Daniel G.
 #############
 
@@ -39,12 +39,16 @@ import os
 class FrontEnd(tk.Frame):
     def __init__(self, parent):
 
-        self.verApp = "2.0.0 beta"
+        self.verApp = "2.0.0"
         self.parent = parent
         
 
         self.parent.title("Manager Mods")
-        self.parent.geometry("400x300")
+        ## variables para centrar la ventana, no tienen self porque realmente
+        ## no hace falta
+        xOffset = int(self.parent.winfo_screenwidth()/2 - 400/2)
+        yOffset = int(self.parent.winfo_screenheight()/2.5 - 300/2)
+        self.parent.geometry(f"400x300+{xOffset}+{yOffset}")
         
         self.parent.iconphoto(True, tk.PhotoImage(file="data/icono.png"))
 
@@ -198,6 +202,9 @@ class FrontEnd(tk.Frame):
                 mbox.showinfo("Mods Añadidos", "Los mods han sido añadidos")     
                 print("exxitzz")
                 self.sql.CrearServer(nombre, ver, str(numMods), origenMods)
+            elif self.modImporter.cancel:
+                self.CargadorPantalla(0)
+                return
             else:
                 self.sql.CrearServer(nombre, ver)
                 
@@ -405,6 +412,8 @@ if (__name__ == "__main__"):
 
     try:
         frontEnd = FrontEnd(vMaestra)
+    except tk.TclError:
+        pass
     except:
         mbox.showerror("ERROR", "Ha ocurrido un error")
         vMaestra.destroy()
