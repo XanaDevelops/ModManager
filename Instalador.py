@@ -57,7 +57,7 @@ class Instalador():
             print("No se ha podido identificar el SO")
         ## detectar si ModManager esta en .exe o .py
             self.modo = "EXE"
-        if ".exe" in os.listdir(os.getcwd()+"/Data"):
+        if "ModManager.exe" in os.listdir(os.getcwd()+"/Data"):
             self.modo = "EXE"
         else:
             self.modo = "PY"
