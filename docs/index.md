@@ -5,7 +5,7 @@
     <div id="header">
         <nav>
           <li class="fork"><a href="{{ site.github.repository_url }}">Ver en Github</a></li>
-          <li class="downloads"><a href="{{ site.github.releases }}">ZIP</a></li>
+          <li class="downloads"><a href="{{ site.github.zip_url }}">ZIP</a></li>
           <li class="downloads"><a href="{{ site.github.tar_url }}">TAR</a></li>
           <li class="title">DESCARGAS</li>
         </nav>
