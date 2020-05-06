@@ -59,6 +59,8 @@ class Instalador():
             self.modo = "EXE"
         if "ModManager.exe" in os.listdir(os.getcwd()+"/Data"):
             self.modo = "EXE"
+        elif "ModManager" in os.listdir(os.getcwd()+"/Data"):
+            self.modo = "ELF"
         else:
             self.modo = "PY"
         print(self.modo)

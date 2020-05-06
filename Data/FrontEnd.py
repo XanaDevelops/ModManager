@@ -410,12 +410,7 @@ class FrontEnd(tk.Frame):
 if (__name__ == "__main__"):
     vMaestra = tk.Tk()
 
-    try:
-        frontEnd = FrontEnd(vMaestra)
-    except tk.TclError:
-        pass
-    except:
-        mbox.showerror("ERROR", "Ha ocurrido un error")
-        vMaestra.destroy()
+    frontEnd = FrontEnd(vMaestra)
+    
 
     vMaestra.mainloop()
