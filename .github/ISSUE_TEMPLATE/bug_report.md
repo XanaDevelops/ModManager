@@ -8,26 +8,26 @@ assignees: XanaDevelops
 ---
 
 **Descripción del bug**
-Una descripción de lo más completa posible del bug
+_Una descripción de lo más completa posible del bug_
 
 **Pasos a seguir**
-Que pasos has seguido para invocar al bug
-1. Hacer click en
-2. Crear server
-3 Editar server
-4 Importar de carpeta
-5 etc
+_Que pasos has seguido para invocar al bug_
+_1. Hacer click en_
+_2. Crear server_
+_3 Editar server_
+_4 Importar de carpeta_
+_5 etc_
 
 **Comportamiento esperado**
-Una descripción de lo que pensabas que pasaría
+_Una descripción de lo que pensabas que pasaría_
 
 **Captura de pantalla**
-Si es posible incluir una captura de pantalla
+_Si es posible incluir una captura de pantalla_
 
 **Información del sistema**
- - OS: [ej. Windows[7/8/10], Ubuntu, iOS, etc]
- - Version [ej 1.0, 2.0]
+_ - OS: [ej. Windows[7/8/10], Ubuntu, iOS, etc]_
+ _- Version [ej 1.0, 2.0]_
 
 
 **Información adicional**
-Añade aquí información extra
+_Añade aquí información extra_
