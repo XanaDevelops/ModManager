@@ -5,9 +5,9 @@
     <div id="header">
         <nav>
           <li class="fork"><a href="{{ site.github.repository_url }}">Ver en Github</a></li>
-          <li class="downloads"><a href="{{ site.github.zip_url }}">ZIP</a></li>
-          <li class="downloads"><a href="{{ site.github.tar_url }}">TAR</a></li>
-          <li class="title">DESCARGAS</li>
+          <li class="downloads"><a href="{{ site.github.releases_url }}">DESCARGAR</a></li>
+          <!-- <li class="downloads"><a href="{{ site.github.tar_url }}">TAR</a></li> -->
+          <li class="title"></li>
         </nav>
       </div><!-- end header -->
     <h1>QUE ES MODMANAGER</h1>
