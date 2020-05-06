@@ -4,16 +4,16 @@ Este es el ModManager que he creado para que l@s jugador@s de Minecraft dejen de
 Este programa lo soluciona de una manera rapida y minimalista.
 
 Para Windows recomiendo descargarlo desde el siguiente enlace: https://github.com/XanaDevelops/ModManager/releases
-Para Linux puedes clonar este git con "git clone https://github.com/XanaDevelops/ModManager.git" o descargar https://github.com/XanaDevelops/ModManager/archive/master.zip
+Para Linux puedes clonar este git con "git clone https://github.com/XanaDevelops/ModManager.git" o descargar https://github.com/XanaDevelops/ModManager/releases
 
 Para Mac puedes clonar este git descargandotelo desde https://github.com/XanaDevelops/ModManager/archive/master.zip
-Además tendras que descargarte python3 desde la pagina oficial
+Además tendras que descargarte python3 desde la pagina oficial. Pero al no tener un Mac no lo puedo probar...
 
 ----Como usar:
-  1.Ejecutar Instalador.py o Instalador.exe (solo Windows)
+  1.Ejecutar Instalador.py, Instalador.exe (solo Windows) o ./Instalador en una terminal linux
   2.Pulsar la tecla I para instalar
   3.Al finalizar se creará un acceso directo en el escritorio.
-  4.Ejecuta el acceso directo y el programa saldrá
+  4.Ejecuta el acceso directo y el programa se ejecutará
 
 
 Daniel García Vázquez ©2020 
