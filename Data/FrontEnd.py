@@ -43,7 +43,7 @@ class FrontEnd(tk.Frame):
         self.parent = parent
         
 
-        self.parent.title("Manager Mods")
+        self.parent.title("ModManager")
         ## variables para centrar la ventana, no tienen self porque realmente
         ## no hace falta
         xOffset = int(self.parent.winfo_screenwidth()/2 - 400/2)
