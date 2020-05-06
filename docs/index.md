@@ -20,6 +20,9 @@
     <p>La gran característica de la versión 2.x es el renovado de la manera de importar mods, pasando de solo poder importar una carpeta a la vez a tener total libertad de poder importarlos de la manera más cómoda</p>
     <p>Además, ya se acabó el tener que borrar un server para corregir un fallo en su nombre, versión o mods, ahora puedes editarlos de la misma manera que cuando se crean</p>
     <img src="https://github.com/XanaDevelops/ModManager/raw/master/docs/Images/ModImporter.png" alt="Captura de pantalla de ModManager">
-    
+    <br>
+    <h2>Descargar</h2>
+    <h4>Actualente la versión actual es la 2.0.1</h4>
+    <a href="https://github.com/XanaDevelops/ModManager/releases/">Ir a la pagina de descargas</a>
   </body>
 </html>
