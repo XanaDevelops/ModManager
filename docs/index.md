@@ -22,7 +22,7 @@
     <img src="https://github.com/XanaDevelops/ModManager/raw/master/docs/Images/ModImporter.png" alt="Captura de pantalla de ModManager">
     <br>
     <h2>Descargar</h2>
-    <h4>Actualente la versión actual es la 2.0.1</h4>
+    <h4>Actualente la versión más reciente es la 2.0.1</h4>
     <a href="https://github.com/XanaDevelops/ModManager/releases/">Ir a la pagina de descargas</a>
     <br>
     <br>
