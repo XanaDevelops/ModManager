@@ -24,5 +24,7 @@
     <h2>Descargar</h2>
     <h4>Actualente la versión actual es la 2.0.1</h4>
     <a href="https://github.com/XanaDevelops/ModManager/releases/">Ir a la pagina de descargas</a>
+    <br>
+    <p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" class="license-text">This work by <span rel="cc:attributionName">Daniel García Vázquez</span>CC BY-SA 4.0<a href="https://creativecommons.org/licenses/by-sa/4.0"><img style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc_icon.svg" /><img  style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc-by_icon.svg" /><img  style="height:22px!important;margin-left: 3px;vertical-align:text-bottom;" src="https://search.creativecommons.org/static/img/cc-sa_icon.svg" /></a></p>
   </body>
 </html>
