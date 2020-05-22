@@ -33,22 +33,24 @@ from BackEnd import *
 from ModImporter import *
 from data.Style import *
 from data.Custom import CustomFont_Label as FontLabel
+from data.Custom import CustomFont_Message as FontMessage
 
 import os
+import platform as pf
 
 class FrontEnd(tk.Frame):
     def __init__(self, parent):
 
-        self.verApp = "2.0.0"
+        self.verApp = "2.1.0"
         self.parent = parent
-        
+        self.OS = pf.system()
 
         self.parent.title("ModManager")
         ## variables para centrar la ventana, no tienen self porque realmente
         ## no hace falta
         xOffset = int(self.parent.winfo_screenwidth()/2 - 400/2)
-        yOffset = int(self.parent.winfo_screenheight()/2.5 - 300/2)
-        self.parent.geometry(f"400x300+{xOffset}+{yOffset}")
+        yOffset = int(self.parent.winfo_screenheight()/2.5 - 320/2)
+        self.parent.geometry(f"400x320+{xOffset}+{yOffset}")
         
         self.parent.iconphoto(True, tk.PhotoImage(file="data/icono.png"))
 
@@ -63,10 +65,44 @@ class FrontEnd(tk.Frame):
         
         #self.P_Inicial()
         #self.P_Crear()
-        self.firma = tk.Label(self.parent, text= f"Daniel Garcia Vazquez 2020© v{self.verApp}")
-        self.firma.pack(side=tk.BOTTOM)
-        self.CargadorPantalla(0)
+        self.firmador = ttk.Frame(self.parent)
+        self.firma = tk.Label(self.firmador, text= f"Daniel Garcia Vazquez 2020© v{self.verApp}")
+        self.firma.grid(row = 0, column = 0)
+        self.acercaDeB = ttk.Button(self.firmador, text = "Acerca de",
+                                    command = lambda:self.AcercaDe())
+        self.acercaDeB.grid(row = 0, column = 1)
+        self.firmador.pack(side=tk.BOTTOM)
         
+        self.CargadorPantalla(0)
+
+    def AcercaDe(self):
+        self.about = tk.Toplevel(self.parent)
+        
+        self.about.title("Acerca de ModManager")
+
+        self.titular = tk.Frame(self.about, relief = tk.RAISED, bd=15)
+        self.titulo = FontLabel(self.titular, text = "ModManager", size=40)
+        self.titulo.grid(row = 0, column = 0)
+        self.titular.grid(row = 0, column = 0)
+        
+        self.Separar(1,self.about)
+        self.descripcion = ttk.Frame(self.about)
+
+        self.text1 = FontLabel(self.descripcion, text="Manager de mods de Minecraft")
+        self.text1.pack()
+        self.text2 = FontLabel(self.descripcion, text="Deja el trabajo sucio")
+        self.text2.pack()
+        self.text3 = FontLabel(self.descripcion, text="a este programa")
+        self.text3.pack()
+        self.descripcion.grid(row = 2, column = 0)
+
+        self.Separar(3,self.about)
+        self.sistema = FontLabel(self.about, text=f"Version {self.verApp} {self.OS}",
+                                 size = 11)
+        self.sistema.grid(row= 4, column = 0)
+        self.nombre = FontLabel(self.about, text="Daniel García Vázquez 2020© GLP3",
+                                size = 11)
+        self.nombre.grid(row = 5, column = 0)
         
     def CargadorPantalla(self, nPantalla):
         
@@ -88,8 +124,10 @@ class FrontEnd(tk.Frame):
         self.pantalla.pack()
         
         self.pantallas[nPantalla] = self.pantalla
-    def Separar(self, fila):
-        self.separador = ttk.Separator(self.pantalla, orient = tk.VERTICAL,
+    def Separar(self, fila, pant = None):
+        if not pant:
+            pant = self.pantalla
+        self.separador = ttk.Separator(pant, orient = tk.VERTICAL,
                                        style = "TSeparator")
         
         self.separador.grid(row = fila, column = 0, sticky = ("N","S","W","E"), pady = 5)
@@ -112,10 +150,11 @@ class FrontEnd(tk.Frame):
         self.titular = tk.Frame(self.pantalla, relief = tk.RAISED, bd=10)
 
         
-        self.titulo = FontLabel(self.titular, text = "Manager de Mods",
-                                size = 25) 
+        self.titulo = FontLabel(self.titular, text = "ModManager",
+                                size = 35) 
         self.titulo.grid(row = 0, column = 0)
-        self.subTitulo = FontLabel(self.titular, text = "Preocupate solo de jugar", size = 12)
+        self.subTitulo = FontLabel(self.titular, text = "Preocupate solo de jugar",
+                                   size = 18)
         self.subTitulo.grid(row = 1, column = 0)
 
         self.titular.grid(row = 0, column = 0)
@@ -128,27 +167,27 @@ class FrontEnd(tk.Frame):
         
         self.infoS = tk.Frame(self.pantalla, relief = tk.RIDGE, bd=5)
 
-        self.tServer = FontLabel(self.infoS, text = "Servidor Activo: ",)
+        self.tServer = FontLabel(self.infoS, text = "Servidor Activo: ",size = 16)
         self.tServer.grid(row = 0, column = 0)
-        self.nServer = FontLabel(self.infoS, text = self.actualServer[0])
+        self.nServer = FontLabel(self.infoS, text = self.actualServer[0],size = 16)
         self.nServer.grid(row = 0, column = 1)
 
         
 
-        self.tVer = FontLabel(self.infoS, text = "Versión Mc: ")
+        self.tVer = FontLabel(self.infoS, text = "Versión Mc: ",size = 16)
         self.tVer.grid(row = 1, column = 0)
         self.vVar = tk.StringVar(value="")
         self.vVar.set(self.actualServer[1])
         
-        self.nVer = FontLabel(self.infoS, text = self.vVar.get())
+        self.nVer = FontLabel(self.infoS, text = self.vVar.get(),size = 16)
         self.nVer.grid(row = 1, column = 1)
 
-        self.tMod = FontLabel(self.infoS, text = "Mods utilizados: ")
+        self.tMod = FontLabel(self.infoS, text = "Mods utilizados: ",size = 16)
         self.tMod.grid(row = 2, column = 0)
         self.vMods = tk.StringVar(value="")
         self.vMods.set(self.actualServer[2])
 
-        self.nMod = FontLabel(self.infoS, text = self.vMods.get())
+        self.nMod = FontLabel(self.infoS, text = self.vMods.get(),size = 16)
         self.nMod.grid(row = 2, column = 1)
 
         

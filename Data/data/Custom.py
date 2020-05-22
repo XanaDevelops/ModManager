@@ -55,7 +55,7 @@ class CustomFont_Label(Label):
 
 
 class CustomFont_Message(Label):
-    def __init__(self, master, text, width, foreground="black", truetype_font=None, font_path=None, family=None, size=None, **kwargs):   
+    def __init__(self, master, text, width, foreground="black", truetype_font=None, font_path="data/Minecraftia-Regular.ttf", family=None, size=14, **kwargs):   
         if truetype_font is None:
             if font_path is None:
                 raise ValueError("Font path can't be None")

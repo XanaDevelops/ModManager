@@ -19,7 +19,7 @@ Instalador de ModManager 2.x
 ### instalador Mod Manager 2.x
 #### Daniel García
 
-import os, shutil
+import os, shutil,sys
 import platform as pf
 import subprocess as subp
 
@@ -31,6 +31,7 @@ class Instalador():
         ## Detectar SO y por ende si .py o exe
         self.OS = pf.system()
         ## parche para linux
+        self.version = "2.1.0"
 
         
         if self.OS == "Windows":
@@ -65,7 +66,7 @@ class Instalador():
             self.modo = "PY"
         print(self.modo)
             
-        print("Bienvenido al instalador de ModManager 2.x")
+        print(f"Bienvenido al instalador de ModManager {self.version}")
         print("Por favor, tomese su tiempo a leer lo siguiente")
         readme = open("sortLICENSE")
         print(readme.read())
@@ -84,13 +85,13 @@ class Instalador():
                 elif r == "L":
                     self.Licencia()
                 elif r == "S":
-                    exit()
+                    sys.exit()
                 else: print("no se como hemos llegado aquí")
             else:
                 print("Por favor, vuelvelo a intentar")
         print("SE HA DETECTADO UN BOT, ABORTEN")
         self.Pause()
-        exit()
+        sys.exit()
 
     def Pause(self):
         input("Pulse enter para continuar")
@@ -105,7 +106,7 @@ class Instalador():
         except FileNotFoundError:
             print("ERROR: Minecraft no esta instalado o no esta en la ruta predeterminada\nAbortando...")
             self.Pause()
-            exit()
+            sys.exit()
         ##mirar que 1.x no instalada
         
         try:
@@ -176,7 +177,7 @@ class Instalador():
                 except:
                     print("ERROR, no se ha podido descargar pip3, se saldrá del instalador...")
                     self.Pause()
-                    exit()
+                    sys.exit()
             try:
                 import tkinter
             except:
@@ -187,11 +188,11 @@ class Instalador():
                 except:
                     print("No se ha podido instalar Tkinter, abortando")
                     self.Pause()
-                    exit()       
+                    sys.exit()       
         print("Instalación completada")
         print("Ahora se saldrá del instalador, que disfrute del programa")
         self.Pause()
-        exit()
+        sys.exit()
             
 
     def Desinstalar(self, v1x = False, hasExit = False):
@@ -240,7 +241,7 @@ class Instalador():
             elif r == "N":
                 print("Saliendo")
                 self.Pause()
-                exit()
+                sys.exit()
             
             
 
@@ -271,7 +272,7 @@ class Instalador():
             
         print("Actualización completada, que lo disfrute")
         self.Pause()
-        exit()
+        sys.exit()
 
 if __name__ == "__main__":
     installer = Instalador()
