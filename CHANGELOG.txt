@@ -1,7 +1,7 @@
 ------------- Changelog del ManagerMods
 ____________________________________________________
 -- 2.1 AboutMe version
-	Añadido un "Acerca del programa" básico
+	Añadido un "Acerca del programa" básico.
 -- 2.0 SQLVersion
 	Cambiar de xml a sql
 		Reescrito BackEnd y optimizado
