@@ -10,7 +10,7 @@ Para Mac puedes clonar este git descargandotelo desde https://github.com/XanaDev
 Además tendras que descargarte python3 desde la pagina oficial. Pero al no tener un Mac no lo puedo probar...
 
 ----Como usar:
-  1.Ejecutar python Instalador.py, Instalador.exe (solo Windows)
+  1.Ejecutar python3 Instalador.py o Instalador.exe (solo Windows)
   2.Pulsar la tecla I para instalar
   3.Al finalizar se creará un acceso directo en el escritorio.
   4.Ejecuta el acceso directo y el programa se ejecutará
