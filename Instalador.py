@@ -153,6 +153,7 @@ class Instalador():
                 link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart ModManager.exe")
             elif(self.modo == "PY"):
                 link.write("@echo off \ncd %AppData%/.minecraft/mods/\nstart pythonw FrontEnd.py")
+            link.write("\necho Iniciando ModManager")
             link.close()
         else: ## linux
             link = open(f"{self.desktop}/Mod Manager.sh", mode="w+")
@@ -161,34 +162,60 @@ class Instalador():
                 pass
             elif(self.modo == "PY"):
                 link.write(f"cd /home/{os.environ['USER']}/.minecraft/mods/\npython3 FrontEnd.py")
+            link.write("\necho Iniciando ModManager")
             link.close()
             os.popen(f"chmod +x {self.desktop}/'Mod Manager.sh'")
-            print("Es necesario descargar 2 dependencias para el ModManager, procediendo a su instalación")
+            print("Es necesario descargar 2 dependencias para el ModManager")
+            print("Estas son Tkinter, y Pillow")
+        try:
+            import tkinter
+        except:
+            print("Tkinter no se ha podido importar")
+            print("Se procederá a su instalacion, se le pedira su contraseña")
             try:
-                print("Instalando Pillow")
-                subp.run("pip3 install Pillow".split(" "))
+                subp.run("sudo apt install python3-tk".split(" "))
             except:
-                print("ERROR, pip3 no se encuentra instalado, se debe instalar para continuar")
-                print("Se le pedirá su contraseña para descargar 'python3-pip'")
-                try:
+                print("No se ha podido instalar Tkinter, abortando")
+                self.Pause()
+                sys.exit()
+        try:
+            print("Instalando Pillow")
+            err = subp.run("pip3 install Pillow".split(" "))
+            if err.returncode == 1:
+                raise NameError("pip3 no existe")
+            if err.returncode == 2:
+                raise PermissionError("No se tiene permisos suficientes")
+        except NameError:
+            print("ERROR, pip3 no se encuentra instalado, se debe instalar para continuar")
+            print("Se le pedirá su contraseña para descargar 'python3-pip'")
+            try:
+                if self.OS == "Linux":
                     subp.run("sudo apt install python3-pip".split(" "))
-                    print("Volviendo a intentar instalar Pillow...")
-                    subp.run("pip3 install Pillow".split(" "))
-                except:
-                    print("ERROR, no se ha podido descargar pip3, se saldrá del instalador...")
-                    self.Pause()
-                    sys.exit()
-            try:
-                import tkinter
+                if self.OS == "Windows":
+                    print("Aun no he implementado la forma de instalar pip3 en Windows...")
+                    raise Exception
             except:
-                print("Tkinter es necesario para la ejecucion de ModManager")
-                print("Se procederá a su instalacion")
-                try:
-                    subp.run("sudo apt install python3-tk".split(" "))
-                except:
-                    print("No se ha podido instalar Tkinter, abortando")
-                    self.Pause()
-                    sys.exit()       
+                print("ERROR, no se ha podido descargar pip3, se saldrá del instalador...")
+                self.Pause()
+                sys.exit()
+        except PermissionError:
+            print("No se tienen privilegios necesarios para la instalación")
+            print("Se le deberia pedir su contraseña")
+            try:
+                if self.OS == "Windows":
+                    err = subp.run("powershell Start-Process pip3 'install Pillow' -Verb runAs".split(" "))
+                    if err.returncode != 0:
+                        raise PermissionError()
+                if self.OS == "Linux":
+                    err = subp.run("sudo pip3 install Pillow".split(" "))
+                    if err.returncode != 0:
+                        raise PermissionError()
+            except:
+                print("Ha ocurrido un error, no se ha podido instalar Pillow")
+                self.Pause()
+                sys.exit()
+                        
+                   
         print("Instalación completada")
         print("Ahora se saldrá del instalador, que disfrute del programa")
         self.Pause()
