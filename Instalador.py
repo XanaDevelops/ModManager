@@ -190,7 +190,7 @@ class Instalador():
             print("Se le pedirá su contraseña para descargar 'python3-pip'")
             try:
                 if self.OS == "Linux":
-                    subp.run("sudo apt install python3-pip".split(" "))
+                    subp.run("sudo apt install python3-pip -y".split(" "))
                 if self.OS == "Windows":
                     print("Aun no he implementado la forma de instalar pip3 en Windows...")
                     raise Exception
