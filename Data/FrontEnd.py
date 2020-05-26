@@ -73,7 +73,8 @@ class FrontEnd(tk.Frame):
         yOffset = int(self.parent.winfo_screenheight()/2.5 - 320/2)
         self.parent.geometry(f"400x320+{xOffset}+{yOffset}")
         
-        self.parent.iconbitmap("data/icono.ico")
+        
+        self.parent.iconphoto(True, tk.PhotoImage(file="data/icono.png"))
         
         self.sql = BackEnd()
         self.modImporter = ModImporter(self.parent)
@@ -491,7 +492,7 @@ if (__name__ == "__main__"):
     try:
     	frontEnd = FrontEnd(vMaestra)
     except tk.TclError:
-        pass
+        mbox.showerror(f"ERROR {sys.exc_info()[0]}", sys.exc_info()[1])
     except SystemExit:
         sys.exit()
     except:
