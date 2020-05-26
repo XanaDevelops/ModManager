@@ -40,14 +40,32 @@ from data.Style import *
 from data.Custom import CustomFont_Label as FontLabel
 from data.Custom import CustomFont_Message as FontMessage
 
-
+import argparse as arg
+import subprocess as subp
 
 class FrontEnd(tk.Frame):
+    def Debug(self):
+        if self.OS == "Windows":
+            if "FrontEnd.py" in os.listdir(os.getcwd()):
+                subp.Popen("cmd /C python FrontEnd.py".split(" "))
+                sys.exit()
+            else:
+                subp.Popen("cmd /C ModManager.exe")
+                sys.exit()
+        elif self.OS == "Linux":
+            #subp.Popen("x-terminal-emulator python FrontEnd.py -v".split(" "))
+            return
     def __init__(self, parent):
         self.verApp = "2.2.0"
         self.parent = parent
         self.OS = pf.system()
-
+        ## argumentos de comando
+        parser = arg.ArgumentParser()
+        parser.add_argument("-v", "--verbose", help="Mostrar información de depuración",
+                            action="store_true")
+        args = parser.parse_args()
+        if args.verbose:
+            self.Debug()
         self.parent.title("ModManager")
         ## variables para centrar la ventana, no tienen self porque realmente
         ## no hace falta
@@ -474,6 +492,8 @@ if (__name__ == "__main__"):
     	frontEnd = FrontEnd(vMaestra)
     except tk.TclError:
         pass
+    except SystemExit:
+        sys.exit()
     except:
         mbox.showerror(f"ERROR {sys.exc_info()[0]}", sys.exc_info()[1])
         vMaestra.destroy()
