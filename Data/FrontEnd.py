@@ -21,12 +21,18 @@ FrontEnd de ModManager 2.x
 ### codigo por Daniel G.
 #############
 
+import os, sys
+import platform as pf
 
-import tkinter as tk
+try:
+    import tkinter as tk
 
-from tkinter import ttk as ttk
-import tkinter.filedialog as filed
-import tkinter.messagebox as mbox
+    from tkinter import ttk as ttk
+    import tkinter.filedialog as filed
+    import tkinter.messagebox as mbox
+except:
+    print("No se ha podido importar tkinter")
+    sys.exit()
 
 from BackEnd import *
 from ModImporter import *
@@ -34,13 +40,11 @@ from data.Style import *
 from data.Custom import CustomFont_Label as FontLabel
 from data.Custom import CustomFont_Message as FontMessage
 
-import os
-import platform as pf
+
 
 class FrontEnd(tk.Frame):
     def __init__(self, parent):
-
-        self.verApp = "2.1.0"
+        self.verApp = "2.2.0"
         self.parent = parent
         self.OS = pf.system()
 
@@ -62,8 +66,6 @@ class FrontEnd(tk.Frame):
                           tk.Frame(self.parent), ## crear
                           tk.Frame(self.parent)] ## navegar servers
         
-        #self.P_Inicial()
-        #self.P_Crear()
         self.firmador = ttk.Frame(self.parent)
         self.firma = tk.Label(self.firmador, text= f"Daniel Garcia Vazquez 2020© v{self.verApp}")
         self.firma.grid(row = 0, column = 0)
@@ -231,8 +233,13 @@ class FrontEnd(tk.Frame):
         
         r = mbox.askyesno("Mods?", "Desea incluir Mods?")
         if(r):
-            self.modImporter.init(self.parent, nombre, ver)
-            
+            try: ## handle errors
+                self.modImporter.init(self.parent, nombre, ver)
+            except:
+                mbox.showerror(f"ERROR {sys.exc_info()[0].__name__}",sys.exc_info()[1])
+                self.barraDeCarga.stop()
+                self.modImporter.ventana.destroy()
+                return
             self.parent.wait_window(self.modImporter.ventana)
             
             if(self.modImporter.crear):
@@ -316,9 +323,13 @@ class FrontEnd(tk.Frame):
         self.barraDeCarga.start(40)
         print(f" SERVERS: {self.listaServers[list(serverPos)[0]][0]} + {self.actualServer}")
         if(self.listaServers[list(serverPos)[0]][0] == self.actualServer[0]):
-            mbox.showinfo("ERROR", "El server ya se encuentra activado,\nprocediendo igualmente")
-        self.sql.ActivarServer(self.listaServers[list(serverPos)[0]][0])
-    
+            mbox.showinfo("AVISO", "El server ya se encuentra activado,\nprocediendo igualmente")
+        try:
+            self.sql.ActivarServer(self.listaServers[list(serverPos)[0]][0])
+        except:
+            mbox.showerror(f"ERROR {sys.exc_info()[0].__name__}",sys.exc_info()[1])
+            self.barraDeCarga.stop()
+            return
         mbox.showinfo("EXITO", "el server se ha cambiado sin problemas")
         self.barraDeCarga.stop()
         self.CargadorPantalla(0)
@@ -364,10 +375,20 @@ class FrontEnd(tk.Frame):
             mbox.showwarning("ERROR", "No se puede editar el server Vanilla")
             return None
         
-        self.modImporter.init(self.parent, server[0], server[1], edit = True)
+        try: ## handle Errors
+            self.modImporter.init(self.parent, server[0], server[1], edit = True)
+        except:
+            mbox.showerror(f"ERROR {sys.exc_info()[0].__name__}",sys.exc_info()[1])
+            self.modImporter.ventana.destroy()
+            return
+        
         if(server[2] != "0"):
-            self.modImporter.Importar("carpeta", auto = True, ruta = server[3])
-            
+            try:
+                self.modImporter.Importar("carpeta", auto = True, ruta = server[3])
+            except:
+                mbox.showerror(f"ERROR {sys.exc_info()[0].__name__}",sys.exc_info()[1])
+                self.modImporter.ventana.destroy()
+                return
         self.parent.wait_window(self.modImporter.ventana)
         if(self.modImporter.serverBorrar):
             self.Borrar(serverPos)
@@ -376,6 +397,7 @@ class FrontEnd(tk.Frame):
         elif(self.modImporter.crear):
             newData = self.modImporter.nameServer.get(),self.modImporter.version.get(), self.modImporter.numMods,self.modImporter.origenMods
             self.sql.EditarServer(server[0], newData)
+            self.UpdateData()
             self.Activar(serverPos)
             mbox.showinfo("EXITO", "Server Editado")
         self.CargadorPantalla(0)
@@ -453,8 +475,8 @@ if (__name__ == "__main__"):
     except tk.TclError:
         pass
     except:
-        mbox.showerror("ERROR", "Un error ha ocurrido y no se puede continuar")
+        mbox.showerror(f"ERROR {sys.exc_info()[0]}", sys.exc_info()[1])
         vMaestra.destroy()
-    
+        sys.exit()
 
     vMaestra.mainloop()

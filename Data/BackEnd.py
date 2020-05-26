@@ -27,6 +27,7 @@ import platform as pf
 
 class BackEnd():
     def __init__(self):
+        
         self.sqlFile = "data/data.db"
         
         self.connect = sql.connect(self.sqlFile)

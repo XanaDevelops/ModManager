@@ -30,8 +30,8 @@ class Instalador():
         self.desktop = "Desktop"
         ## Detectar SO y por ende si .py o exe
         self.OS = pf.system()
-        ## parche para linux
-        self.version = "2.1.0"
+        
+        self.version = "2.2.0"
 
         
         if self.OS == "Windows":
@@ -293,7 +293,7 @@ class Instalador():
         if(self.modo == "EXE"):
             shutil.copy("Data/ModManager.exe", self.path)
         elif self.modo == "PY":
-            shutil.copy("Data/FrontEnd.pyw", self.path)
+            shutil.copy("Data/FrontEnd.py", self.path)
             shutil.copy("Data/BackEnd.py", self.path)
             shutil.copy("Data/ModImporter.py", self.path)
             

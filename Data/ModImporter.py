@@ -33,7 +33,7 @@ import tkinter.messagebox as mbox
 from data.Style import *
 from data.Custom import CustomFont_Label as FontLabel
 
-import os, shutil
+import os, shutil, sys
 import platform as pf
 
 import zipfile as zipf
@@ -43,10 +43,10 @@ class ModImporter(tk.Frame):
         pass
     def init(self, parent, nameServer = "TESTCRAFT", ver = "666.6.6", edit = False):
         self.ventana = tk.Toplevel()
-        
         self.ventana.title("Importar Mods")
         self.ventana.transient(master = parent)
         self.ventana.grab_set()
+        
         ## variables necesarias
         self.edit = edit
         self.rutasMods = []
@@ -56,7 +56,7 @@ class ModImporter(tk.Frame):
         self.single = tk.BooleanVar(self.ventana, value = True)
 
         self.crear = False
-
+        
         self.nameServer = tk.StringVar(value= nameServer)
         self.oldName = nameServer
         self.version = tk.StringVar(value=ver)
@@ -154,8 +154,11 @@ class ModImporter(tk.Frame):
             print(self.rutaCarpeta)
             if(self.rutaCarpeta != ""):
                 mods = os.listdir(self.rutaCarpeta)
+                self.Listar(self.rutaCarpeta, mods)  
                 
-                self.Listar(self.rutaCarpeta, mods)   
+                #mbox.showerror(f"ERROR {sys.exc_info()[0].__name__}",sys.exc_info()[1])
+                    
+                 
                     
         if modo == "file":
             self.archivosRaw = filed.askopenfiles(filetypes=[("Minecraft Mod", "*.jar")])
