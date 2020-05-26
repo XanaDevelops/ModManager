@@ -52,8 +52,8 @@ class FrontEnd(tk.Frame):
         yOffset = int(self.parent.winfo_screenheight()/2.5 - 320/2)
         self.parent.geometry(f"400x320+{xOffset}+{yOffset}")
         
-        self.parent.iconphoto(True, tk.PhotoImage(file="data/icono.png"))
-
+        self.parent.iconbitmap("data/icono.ico")
+        
         self.sql = BackEnd()
         self.modImporter = ModImporter(self.parent)
         self.style = Styles()
