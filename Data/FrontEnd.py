@@ -24,7 +24,6 @@ FrontEnd de ModManager 2.x
 
 import tkinter as tk
 
-
 from tkinter import ttk as ttk
 import tkinter.filedialog as filed
 import tkinter.messagebox as mbox
