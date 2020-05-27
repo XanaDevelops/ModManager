@@ -3,6 +3,8 @@ ____________________________________________________
 -- 2.2 AntiError version
 	Corregido bug que si cambiabas el nombre de un servidor al editarlo saltaba un error y no se completaba el proceso
 	Añadidos mensajes de error, si algo sale mal, deberia salir un aviso
+	Añadido opción de abrir una consola para ver los prints (solo Windows)
+	Solo se borraran los mods de /mods si este era el servidor activo
 
 -- 2.1 AboutMe version
 	Añadido un "Acerca del programa" básico.

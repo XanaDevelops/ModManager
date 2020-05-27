@@ -27,7 +27,7 @@ import platform as pf
 
 class BackEnd():
     def __init__(self):
-        
+        print("Iniciando BackEnd")
         self.sqlFile = "data/data.db"
         
         self.connect = sql.connect(self.sqlFile)
@@ -49,6 +49,12 @@ class BackEnd():
         self.OS = pf.system()
 
     def CrearServer(self, serverName, version, numMods = 0, origenMods = ""):
+        print("Creando servidor...")
+        print("    ",serverName)
+        print("    ",version)
+        print("    ",numMods)
+        print("    ",origenMods)
+        
         crearCarpeta = True
         modsPath = "None"
         if(numMods != 0):
@@ -71,13 +77,15 @@ class BackEnd():
                    print("Carpetas iguales, no se copia")
                    break
                 if ".jar" in mod:
-                   shutil.copy((origenMods+"/"+mod), modsPath)
+                    print("Copiando mod:", mod)
+                    shutil.copy((origenMods+"/"+mod), modsPath)
         
         self.cursor.execute("INSERT INTO Servers VALUES (?,?,?,?,?)",
                             ((serverName, version, numMods, modsPath, False)))
         
         
         self.connect.commit()
+        print("Server creado")
         try:
             shutil.rmtree(origenMods)
         except:
@@ -85,6 +93,7 @@ class BackEnd():
     def EditarServer(self, serverName, newData):
         ## New data es [serverName, ver, numMods, origenMods]
         ## siempre se modifican ya que puede coincidir el nombre....
+        print("Editando servidor:", serverName)
         self.cursor.execute("SELECT NumMods, PathMods FROM Servers WHERE ServerName=?", (serverName,))
         
         oldNumMods, oldPathMods = self.cursor.fetchall()[0]
@@ -100,6 +109,7 @@ class BackEnd():
             print("Server a Vanilla")
             for mod in os.listdir(oldPathMods):
                 if ".jar" in mod:
+                    print("Eliminando mod",mod)
                     os.remove(f"{oldPathMods}/{mod}")
             os.rmdir(oldPathMods)
         else:
@@ -109,6 +119,7 @@ class BackEnd():
                 os.mkdir(newData[0])
                 for mod in os.listdir(newData[3]):
                     if ".jar" in mod:
+                        print("Copiando mod", mod)
                         shutil.copy((newData[3]+"/"+mod),newData[0])
                 
                 modsPath = f"{os.getcwd()}/{newData[0]}"
@@ -116,6 +127,7 @@ class BackEnd():
                 # si ya tenia mods los elimina y copia de la nueva fuente
                 print("Reponer mods")
                 for mod in os.listdir(oldPathMods):
+                    print(f"Eliminando mod {mod} de la fuente antigua")
                     os.remove(f"{oldPathMods}/{mod}")
                 ##si cambia el nombre elimina la carpeta vieja y crea la nueva
                 ## pero ojo, modImporter debe comprovar que no exista!!!
@@ -128,38 +140,51 @@ class BackEnd():
                     modsPath = oldPathMods
                 
                 for mod in os.listdir(newData[3]):
+                    print(f"Moviendo mod {mod} a la nueva ubicación") 
                     shutil.move(f"{newData[3]}/{mod}", modsPath)
         
         self.cursor.execute("UPDATE Servers set ServerName=?,Version=?,NumMods=?,PathMods=? WHERE ServerName=?",
                             (newData[0], newData[1], newData[2], modsPath, serverName))
 
         self.connect.commit()
-
+        print("Server editado\n")
     def EliminarServer(self, serverName, delMods = False):
         ## recupera el path por si acaso
+        print("Procediendo a eliminar", serverName)
         self.cursor.execute("SELECT PathMods FROM Servers WHERE ServerName=?", (serverName,))
         modsPath = self.cursor.fetchall()[0][0]
 
+        ##guardar si era activo
+        self.cursor.execute("SELECT IsActive FROM Servers WHERE ServerName=?", (serverName,))
+        isActive = self.cursor.fetchall()[0][0]
+
         self.cursor.execute("DELETE FROM Servers WHERE ServerName=?", (serverName,))
 
-        # elimina mods de /mods
-        for mod in os.listdir():
-            if ".jar" in mod:
-                os.remove(mod)
+        # elimina mods de /mods si es el server activo
+        if int(isActive):
+            print("Server es activo")
+            print("Eliminando mods de /mods")
+            for mod in os.listdir():
+                if ".jar" in mod:
+                    os.remove(mod)
 
         ##elimina la carpeta
         if(delMods):
+            print("eliminando la carpeta de los mods y los mods")
             shutil.rmtree(modsPath)
         ##Si la carpeta esta vacia la elimina igual
         else:
             if(serverName in os.listdir(os.getcwd())):
                if(os.listdir(serverName) == []):
+                   print("Eliminando la carpeta de los mods")
                    os.rmdir(serverName)
                
         
         self.connect.commit()
+        print("Server eliminado\n")
 
     def ActivarServer(self, serverName):
+        print("Activando server",serverName)
         ##Comprueba si es vanilla el server o no
         self.cursor.execute("SELECT NumMods, PathMods FROM Servers WHERE ServerName=?", (serverName,))
         
@@ -169,6 +194,7 @@ class BackEnd():
         ##En todo caso elimina los mods actuales
         for mod in os.listdir():
             if ".jar" in mod:
+                print("eliminando mod",mod,"de /mods")
                 os.remove(mod)
 
         #Ahora cambia la activacion
@@ -179,9 +205,12 @@ class BackEnd():
         if numMods != "0":
             for mod in os.listdir(modsPath):
                 if ".jar" in mod:
+                    print("Copiando mod",mod,"hacia /mods")
                     shutil.copy(f"{modsPath}/{mod}", os.getcwd())
         self.connect.commit()
+        print("Server Activado\n")
     def VerServers(self):
+        print("Accediendo a la base de datos")
         self.cursor.execute("SELECT * FROM Servers")
 
         lista = self.cursor.fetchall()

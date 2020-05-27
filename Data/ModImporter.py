@@ -42,6 +42,8 @@ class ModImporter(tk.Frame):
     def __init__(self,parent):
         pass
     def init(self, parent, nameServer = "TESTCRAFT", ver = "666.6.6", edit = False):
+        print("Iniciando ModImporter siendo el modo editar",edit)
+        
         self.ventana = tk.Toplevel()
         self.ventana.title("Importar Mods")
         self.ventana.transient(master = parent)
@@ -126,7 +128,7 @@ class ModImporter(tk.Frame):
             print(self.rutaCarpeta)
         for x in mods:
             if(not ".jar" in x):
-                print("archivo que no es mod encontrado")
+                print("archivo",x,"que no es mod encontrado")
             else:
                 if x in self.nombresMods:
                     r = False
@@ -140,8 +142,11 @@ class ModImporter(tk.Frame):
                     self.rutasMods.append(f"{self.rutaCarpeta}/{x}")
                     self.nombresMods.append(x)
         
-        print(self.rutasMods)
-        print(self.nombresMods)
+        #print(self.rutasMods)
+        print("Nombres de los mods actualmente:")
+        for mod in self.nombresMods:
+            print(mod)
+        #print(self.nombresMods)
         self.numeroDeMods.set(len(self.nombresMods))
         
     def Importar(self,modo, auto = False, ruta = ""):
@@ -151,7 +156,7 @@ class ModImporter(tk.Frame):
                 self.rutaCarpeta = ruta
             else:
                 self.rutaCarpeta = filed.askdirectory()
-            print(self.rutaCarpeta)
+            print("Carpeta a importar",self.rutaCarpeta)
             if(self.rutaCarpeta != ""):
                 mods = os.listdir(self.rutaCarpeta)
                 self.Listar(self.rutaCarpeta, mods)  
@@ -164,16 +169,18 @@ class ModImporter(tk.Frame):
             self.archivosRaw = filed.askopenfiles(filetypes=[("Minecraft Mod", "*.jar")])
             if(self.archivosRaw != ""):
                 self.rutasArchivos = [x.name for x in self.archivosRaw]
-                print(self.rutasArchivos)
+                print("Archivos a importar:")
+                for mod in self.rutasArchivos:
+                    print(mod)
+                print()
                 
                 self.rutaCarpeta = ""
                 self.Listar(self.rutasArchivos)
 
         if modo == "zip":
  
-            self.rutaArchivo = filed.askopenfile(filetypes=[("Archivo Zip", "*.zip"),
-                                                          ("Archivo Rar","*.rar")]).name
-            print(self.rutaArchivo)
+            self.rutaArchivo = filed.askopenfile(filetypes=[("Archivo Zip", "*.zip")]).name #,("Archivo Rar","*.rar")
+            print("Zip a descomprimir",self.rutaArchivo)
             if self.rutaArchivo != "":
                 path = ""
                 if(self.OS == "Windows"):
@@ -191,7 +198,7 @@ class ModImporter(tk.Frame):
                 miZip.close()
                 print("OK descompresion")
                 
-                print("Ok todo")
+                print("Ok todo\n")
 
                 self.rutaCarpeta = f"{path}/mods/"
                 self.Listar(self.rutaCarpeta, os.listdir(f"{path}/mods/"))
@@ -203,6 +210,7 @@ class ModImporter(tk.Frame):
         ##devolverá los valores adecuados, la ruta de la carpeta si no es .minecraft/mods
         ##                                  lo pasará a %temp%
         ######
+        print("Guardando Servidor")
         if(self.nameServer.get() in os.listdir(os.getcwd()) and self.oldName != self.nameServer.get()):
             mbox.showwarning("ERROR", "El nombre del Server ya existe")
             return None
@@ -342,6 +350,7 @@ class ModImporter(tk.Frame):
             r = mbox.askyesno("Borrar Server?", "Estas seguro?, no hay vuelta atras")
             if(r):
                 self.serverBorrar = True
+                print("Procediendo a borrar el servidor")
                 self.ventana.destroy()
         elif(todo):
             self.rutasMods = []
@@ -352,6 +361,7 @@ class ModImporter(tk.Frame):
             if(self.lista.curselection() == ()):
                 mbox.showwarning("Desmarcar", "Selecciona un Mod")
                 return
+            print("Borrando de la importacion el mod seleccionado")
             index = self.lista.curselection()[0]
             name = self.lista.get(index)
             indexL = self.nombresMods.index(name)

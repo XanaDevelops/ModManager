@@ -55,10 +55,13 @@ class FrontEnd(tk.Frame):
             
    
     def __init__(self, parent):
+        print("###### BIENVENIDO A MODMANGER ######")
+        
         self.verApp = "2.2.0"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()
+        print(f"Version: {self.verApp} corriendo en {self.OS}")
         ## argumentos de comando
         parser = arg.ArgumentParser()
         parser.add_argument("-v", "--verbose", help="Mostrar información de depuración",
@@ -97,6 +100,8 @@ class FrontEnd(tk.Frame):
         self.CargadorPantalla(0)
 
     def AcercaDe(self):
+        print("Abriendo AcercaDe")
+        
         self.about = tk.Toplevel(self.parent)
         
         self.about.title("Acerca de ModManager")
@@ -118,9 +123,14 @@ class FrontEnd(tk.Frame):
         self.descripcion.grid(row = 2, column = 0)
 
         self.Separar(3,self.about)
-        self.sistema = FontLabel(self.about, text=f"Version {self.verApp} {self.OS}",
+        self.sistemaF = ttk.Frame(self.about)
+        self.sistema = FontLabel(self.sistemaF, text=f"Version {self.verApp} {self.OS}",
                                  size = 11)
         self.sistema.grid(row= 4, column = 0)
+        self.debug = ttk.Button(self.sistemaF, text="Activar debug",
+                                command=lambda:self.Debug())
+        self.debug.grid(row = 4, column = 1)
+        self.sistemaF.grid(row = 4, column = 0)
         self.nombre = FontLabel(self.about, text="Daniel García Vázquez 2020© GLP3",
                                 size = 11)
         self.nombre.grid(row = 5, column = 0)
@@ -153,15 +163,20 @@ class FrontEnd(tk.Frame):
         
         self.separador.grid(row = fila, column = 0, sticky = ("N","S","W","E"), pady = 5)
     def UpdateData(self):
+        print("Actualizando datos de servidor")
         self.listaServers = self.sql.VerServers()
-        print(self.listaServers)
+        print("Servidores actualmente registrados:")
+        for server in self.listaServers:
+            print("    ",server)
 
         for server in self.listaServers:
             if server[4] == 1:
                 self.actualServer = server
+                print("El server activo es",server[0])
                 break
         if len(self.listaServers) == 1 and self.listaServers[0][0] == "Vanilla":
             self.soloVanilla = True
+            print("Solo se encuentra el servidor Vanilla")
         else:
             self.soloVanilla = False
         
@@ -239,14 +254,17 @@ class FrontEnd(tk.Frame):
         
 		
     def Crear(self):
+        print("Creando servidor\n")
+        
         nombre = self.vServer.get()
         ver = self.vVer.get()
-        
+        print("Servidor:", nombre, "Version", ver)
         for server in self.listaServers:
             
             if(nombre.upper() == server[0].upper()):
                 mbox.showwarning("ERROR", "Ya existe un server con ese nombre")
-                return None
+                print("Ya existe ese servidor")
+                return
 
         self.barraDeCarga.start(25)
         
