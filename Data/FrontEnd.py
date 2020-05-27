@@ -50,12 +50,15 @@ class FrontEnd(tk.Frame):
                 subp.Popen("cmd /C python FrontEnd.py".split(" "))
                 sys.exit()
             else:
+                
                 subp.Popen("cmd /C ModManager.exe")
                 sys.exit()
             
    
     def __init__(self, parent):
         print("###### BIENVENIDO A MODMANGER ######")
+
+        sys.stdout.reconfigure(line_buffering=True)
         
         self.verApp = "2.2.0"
         self.parent = parent
