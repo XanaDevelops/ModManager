@@ -52,21 +52,22 @@ class FrontEnd(tk.Frame):
             else:
                 subp.Popen("cmd /C ModManager.exe")
                 sys.exit()
-        elif self.OS == "Linux":
-            #subp.Popen("x-terminal-emulator python FrontEnd.py -v".split(" "))
-            return
+            
+   
     def __init__(self, parent):
         self.verApp = "2.2.0"
         self.parent = parent
+        self.parent.title("ModManager")
         self.OS = pf.system()
         ## argumentos de comando
         parser = arg.ArgumentParser()
         parser.add_argument("-v", "--verbose", help="Mostrar información de depuración",
                             action="store_true")
+        
         args = parser.parse_args()
         if args.verbose:
             self.Debug()
-        self.parent.title("ModManager")
+     
         ## variables para centrar la ventana, no tienen self porque realmente
         ## no hace falta
         xOffset = int(self.parent.winfo_screenwidth()/2 - 400/2)
