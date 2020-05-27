@@ -9,9 +9,13 @@ Si quieres la ultima versión de desarollo puedes clonar este repositorio
 Para Mac deberia funcionar la version de Linux, pero no lo puedo comprobar
 
 <h2>Como usar:</h2>
-  > Descargar ModManager
-  > Ejecutar el instalador.exe o instalador.py
 
-Daniel García Vázquez ©2020 
-La fuente de Minecraft está extraida de dafont.com/es/minecraftia.font
-El programa para mostrar esta fuente esta hecho por Miguel Martinez Lopez bajo la licencia MIT
+1. Descargar ModManager
+2. Ejecutar el Instalador.py, (*.exe en Windows)
+3. Pulsar la tecla **I** para Instalar, **A** para Actualizar
+4. Abrir el acceso directo creado en el escritorio
+5. Disfrutar del programa
+
+> Daniel García Vázquez ©2020<br>
+> La fuente de minecraft está extraida de dafont.com/es/minecraftia.font<br>
+> El script que permite mostrar la fuente es de Miguel Martinez Lopez bajo la licencia MIT
