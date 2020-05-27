@@ -43,6 +43,18 @@ from data.Custom import CustomFont_Message as FontMessage
 import argparse as arg
 import subprocess as subp
 
+class Unbuffered(object):
+   def __init__(self, stream):
+       self.stream = stream
+   def write(self, data):
+       self.stream.write(data)
+       self.stream.flush()
+   def writelines(self, datas):
+       self.stream.writelines(datas)
+       self.stream.flush()
+   def __getattr__(self, attr):
+       return getattr(self.stream, attr)
+    
 class FrontEnd(tk.Frame):
     def Debug(self):
         if self.OS == "Windows":
@@ -51,15 +63,15 @@ class FrontEnd(tk.Frame):
                 sys.exit()
             else:
                 
-                subp.Popen("cmd /C ModManager.exe")
+                subp.Popen("cmd /C ModManager.exe | more".split(" "))
                 sys.exit()
             
    
     def __init__(self, parent):
         print("###### BIENVENIDO A MODMANGER ######")
 
-        sys.stdout.reconfigure(line_buffering=True)
         
+        sys.stdout = Unbuffered(sys.stdout)
         self.verApp = "2.2.0"
         self.parent = parent
         self.parent.title("ModManager")
