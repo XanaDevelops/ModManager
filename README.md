@@ -9,12 +9,8 @@ Si quieres la ultima versión de desarollo puedes clonar este repositorio
 Para Mac deberia funcionar la version de Linux, pero no lo puedo comprobar
 
 <h2>Como usar:</h2>
-1.Ejecutar python3 Instalador.py o Instalador.exe (solo Windows)
-2.Pulsar la tecla I para instalar
-3.Al finalizar se creará un acceso directo en el escritorio.
-4.Ejecuta el acceso directo y el programa se ejecutará
-5.Disfrútalo
-
+  > Descargar ModManager
+  > Ejecutar el instalador.exe o instalador.py
 
 Daniel García Vázquez ©2020 
 La fuente de Minecraft está extraida de dafont.com/es/minecraftia.font
