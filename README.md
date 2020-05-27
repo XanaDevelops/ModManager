@@ -2,7 +2,7 @@
 
 Este es el ModManager que he creado para que l@s jugador@s de Minecraft dejen de preocuparse por mover mods de una carpeta a otra.
 Este programa lo soluciona de una manera rapida y minimalista.
-
+<br>
 Puedes descargar la ultima versión estable desde https://github.com/XanaDevelops/ModManager/releases
 Si quieres la ultima versión de desarollo puedes clonar este repositorio
 
