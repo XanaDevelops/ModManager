@@ -1,20 +1,19 @@
-Manager de Mods para Minecraft
+<h1>Manager de Mods para Minecraft</h1>
 
 Este es el ModManager que he creado para que l@s jugador@s de Minecraft dejen de preocuparse por mover mods de una carpeta a otra.
 Este programa lo soluciona de una manera rapida y minimalista.
 
-Para Windows recomiendo descargarlo desde el siguiente enlace: https://github.com/XanaDevelops/ModManager/releases
-Para Linux puedes clonar este git con "git clone https://github.com/XanaDevelops/ModManager.git" o descargar https://github.com/XanaDevelops/ModManager/releases
+Puedes descargar la ultima versión estable desde https://github.com/XanaDevelops/ModManager/releases
+Si quieres la ultima versión de desarollo puedes clonar este repositorio
 
-Para Mac puedes clonar este git descargandotelo desde https://github.com/XanaDevelops/ModManager/archive/master.zip
-Además tendras que descargarte python3 desde la pagina oficial. Pero al no tener un Mac no lo puedo probar...
+Para Mac deberia funcionar la version de Linux, pero no lo puedo comprobar
 
-----Como usar:
-  1.Ejecutar python3 Instalador.py o Instalador.exe (solo Windows)
-  2.Pulsar la tecla I para instalar
-  3.Al finalizar se creará un acceso directo en el escritorio.
-  4.Ejecuta el acceso directo y el programa se ejecutará
-  5.Disfrútalo
+<h2>Como usar:</h2>
+1.Ejecutar python3 Instalador.py o Instalador.exe (solo Windows)
+2.Pulsar la tecla I para instalar
+3.Al finalizar se creará un acceso directo en el escritorio.
+4.Ejecuta el acceso directo y el programa se ejecutará
+5.Disfrútalo
 
 
 Daniel García Vázquez ©2020 
