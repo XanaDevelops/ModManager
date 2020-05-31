@@ -59,11 +59,11 @@ class FrontEnd(tk.Frame):
     def Debug(self):
         if self.OS == "Windows":
             if "FrontEnd.py" in os.listdir(os.getcwd()):
-                subp.Popen("cmd /C python FrontEnd.py".split(" "))
+                subp.Popen(f'cmd /C title ModManager && python FrontEnd.py'.split(" "))
                 sys.exit()
             else:
                 
-                subp.Popen("cmd /C ModManager.exe | more".split(" "))
+                subp.Popen("cmd /C title ModManager && ModManager.exe | more".split(" "))
                 sys.exit()
             
    
