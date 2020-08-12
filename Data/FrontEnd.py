@@ -17,10 +17,10 @@ FrontEnd de ModManager 2.x
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 ################
-### ManagerMods para MC todas versiones v2.0.0
+### ManagerMods para MC todas versiones v2.3.0
 ### codigo por Daniel G.
 #############
-## test 2 de visual studio
+
 
 import os, sys
 import platform as pf
@@ -73,7 +73,7 @@ class FrontEnd(tk.Frame):
 
         
         sys.stdout = Unbuffered(sys.stdout)
-        self.verApp = "2.2.1"
+        self.verApp = "2.3.0"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()
@@ -171,6 +171,7 @@ class FrontEnd(tk.Frame):
         self.pantalla.pack()
         
         self.pantallas[nPantalla] = self.pantalla
+
     def Separar(self, fila, pant = None):
         if not pant:
             pant = self.pantalla
@@ -178,6 +179,7 @@ class FrontEnd(tk.Frame):
                                        style = "TSeparator")
         
         self.separador.grid(row = fila, column = 0, sticky = ("N","S","W","E"), pady = 5)
+
     def UpdateData(self):
         print("Actualizando datos de servidor")
         self.listaServers = self.sql.VerServers()
@@ -481,7 +483,7 @@ class FrontEnd(tk.Frame):
 
         self.lista.bind("<Return>", lambda e: self.Activar(self.lista.curselection()))
         self.lista.bind("<Delete>", lambda e: self.Borrar(self.lista.curselection()))
-
+        self.lista.bind("<Double-Button-1>", lambda e:self.Editar(self.lista.curselection()))
 
         if(self.actualServer == ["Vanilla"]):
             fff  = mbox.showwarning("Sin Servers", "Es necesario que crees uno")

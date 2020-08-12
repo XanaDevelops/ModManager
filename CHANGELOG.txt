@@ -1,5 +1,9 @@
 ------------- Changelog del ManagerMods
 ____________________________________________________
+-- 2.3 Export version
+	Añadida la funcion de exportar los mods presentes en un servidor a una carpeta zip
+	Existe el bug que mientras ModManager siga abierto, no se podrá acceder al zip, pero si copiarlo, moverlo o compartirlo
+
 -- 2.2 AntiError version
 	Corregido bug que si cambiabas el nombre de un servidor al editarlo saltaba un error y no se completaba el proceso
 	Añadidos mensajes de error, si algo sale mal, deberia salir un aviso

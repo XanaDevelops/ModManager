@@ -148,7 +148,119 @@ class ModImporter(tk.Frame):
             print(mod)
         #print(self.nombresMods)
         self.numeroDeMods.set(len(self.nombresMods))
+       
+    def Constructor(self):
+        self.frame = ttk.Frame(self.ventana)
         
+        self.titular = ttk.Frame(self.frame)
+        self.titulo = FontLabel(self.titular, text = "Importador de mods", size = 20)
+        self.titulo.grid(row = 0, column = 0)
+        if(self.edit):
+            self.subtitulo = ttk.Frame(self.titular)
+
+            self.nombreF = FontLabel(self.subtitulo,
+                                     text = "Server: ")
+            self.nombreF.grid(row = 0, column = 0)
+
+            self.nombreE = ttk.Entry(self.subtitulo, textvariable = self.nameServer)
+            self.nombreE.grid(row = 0, column = 1)
+
+            self.versionF = FontLabel(self.subtitulo, text = "Version")
+            self.versionF.grid(row = 0, column = 2)
+
+            self.versionE = ttk.Entry(self.subtitulo, textvariable = self.version)
+            self.versionE.grid(row = 0, column = 3)
+        else:
+            self.subtitulo = FontLabel(self.titular,
+                                       text = f"Server: {self.nameServer.get()}   ver: {self.version.get()}")
+        self.subtitulo.grid(row = 1, column = 0)
+        self.titular.grid(row = 0, column = 0, columnspan = 2)
+        ## Parte botones
+    
+        self.botonesImport = ttk.Frame(self.frame)
+
+        self.botonCarpeta = ttk.Button(self.botonesImport, text = "Importar de Carpeta",
+                                       command=lambda:self.Importar("carpeta"))
+        self.botonCarpeta.grid(row= 0, column = 0, sticky=["W","E"])
+        self.botonArchivo = ttk.Button(self.botonesImport, text = "Importar de Archivo",
+                                       command=lambda:self.Importar("file"))
+        self.botonArchivo.grid(row= 1, column = 0, sticky=["W","E"])
+        self.botonZip = ttk.Button(self.botonesImport, text = "Importar de archivo comprimido",
+                                       command=lambda:self.Importar("zip"))
+        self.botonZip.grid(row= 2, column = 0)
+
+        self.botonExport = ttk.Button(self.botonesImport, text="Exportar mods",
+                                      command=lambda:self.Exportar())
+        self.botonExport.grid(row =3, column=0)
+        
+        self.botonesImport.grid(row= 1, column = 0, sticky=["W","E"])
+        self.botonesEdit = ttk.Frame(self.frame)
+        if(self.edit):
+            self.botonBorrarServer = ttk.Button(self.botonesEdit, text = "Borrar Server",
+                                                command = lambda: self.Borrar(server = True))
+            self.botonBorrarServer.grid(row = 2, column = 0, sticky=["W","E"])
+            
+        
+        self.botonBorrar = ttk.Button(self.botonesEdit, text = "Desmarcar mod seleccionado",
+                                      command=lambda:self.Borrar())
+        self.botonBorrar.grid(row = 0, column = 0, sticky=["W","E"])
+
+        self.botonBorrarAll = ttk.Button(self.botonesEdit, text = "Desmarcar todos los mods",
+                                      command=lambda:self.Borrar(todo=True))
+        self.botonBorrarAll.grid(row = 1, column = 0, sticky=["W","E"])
+    
+        self.botonesEdit.grid(row = 2, column = 0, sticky=["W","E"])
+
+        
+
+        ## aqui verás los mods que se van a incluir, si hay
+        self.frameLista = ttk.Frame(self.frame)
+        self.frameNumMods = ttk.Frame(self.frameLista)
+        
+        self.numeroDeModsL = FontLabel(self.frameNumMods, text = "Numero de mods:")
+        self.numeroDeModsL.grid(row = 0, column = 0)
+        self.numeroDeModsV = ttk.Label(self.frameNumMods,
+                                       textvariable = self.numeroDeMods)
+        self.numeroDeModsV.grid(row = 0, column = 1)
+
+        self.chkButtonDoble = ttk.Checkbutton(self.frameNumMods,
+                                              text =  "Evitar Duplicados",
+                                              variable = self.single)
+        self.chkButtonDoble.grid(row = 0, column = 2, sticky=["W","E"])
+
+        self.frameNumMods.grid(row = 0, column = 0)
+        
+        self.lista = tk.Listbox(self.frameLista, width = 50,
+                             height = 10)
+        self.lista.grid(row = 1, column = 0, sticky=("N","S","E","W"))
+
+        self.scroll = ttk.Scrollbar(self.frameLista, orient = tk.VERTICAL,
+                                command = self.lista.yview)
+        self.scroll.grid(row = 1, column = 1, sticky = ("N","S"))
+        
+        self.lista["yscrollcommand"] = self.scroll.set
+        self.lista.bind("<Delete>", lambda e: self.Borrar())
+        
+        self.frameLista.grid(row = 1, column = 1,
+                             rowspan = 2)
+
+        self.separador = ttk.Separator(self.frame, orient = tk.VERTICAL,
+                                       style = "TSeparator")
+        
+        self.separador.grid(row = 3, column = 0, columnspan = 2,
+                            sticky = ("N","S","W","E"), pady = 5)
+    
+
+        self.botones = ttk.Frame(self.frame)
+        self.guardar = ttk.Button(self.botones, text = "Guardar",
+                                  command = lambda:self.Guardar())
+        self.guardar.grid(row= 0,column = 0)
+        self.salir = ttk.Button(self.botones, text = "Salir sin guardar",
+                                command=lambda:self.Salir())
+        self.salir.grid(row = 0, column = 1)
+        self.botones.grid(row = 4, column = 0, columnspan = 2, pady = 2)
+        self.frame.pack()
+
     def Importar(self,modo, auto = False, ruta = ""):
         ## Leera la entrada y lo pasará una lista con las rutas absolutas
         if modo == "carpeta":
@@ -205,7 +317,25 @@ class ModImporter(tk.Frame):
             
                     
         self.ActualizarLista()
-            
+    
+    def Exportar(self):
+        if (self.numeroDeMods.get() == 0):
+            mbox.showwarning("Aviso", "El server no tiene mods que exportar")
+            return
+        print("Iniciando la exportación de los mods")
+        self.rutaArchivo = filed.asksaveasfile(filetypes=[("Archivo Zip", "*.zip")], defaultextension=".zip")
+        print("ruta al archivo es" + self.rutaArchivo.name)
+        with zipf.ZipFile(self.rutaArchivo.name, mode ="w") as modzip:
+            for mod in self.rutasMods:
+                print("exportando mod ", mod)
+                modzip.write(mod, self.nombresMods[self.rutasMods.index(mod)])
+            modzip.close()
+            del modzip
+
+        print("Mods exportados")
+        mbox.showinfo("ÉXITO", "Mods exportados\nSi te aparece un error al abrir el zip, cierra ModManager y vuelvelo a intentar")
+
+
     def Guardar(self):
         ##devolverá los valores adecuados, la ruta de la carpeta si no es .minecraft/mods
         ##                                  lo pasará a %temp%
@@ -236,113 +366,7 @@ class ModImporter(tk.Frame):
                 shutil.copy(mod, self.origenMods)
         self.crear = True
         self.ventana.destroy()
-    def Constructor(self):
-        self.frame = ttk.Frame(self.ventana)
-        
-        self.titular = ttk.Frame(self.frame)
-        self.titulo = FontLabel(self.titular, text = "Importador de mods", size = 20)
-        self.titulo.grid(row = 0, column = 0)
-        if(self.edit):
-            self.subtitulo = ttk.Frame(self.titular)
 
-            self.nombreF = FontLabel(self.subtitulo,
-                                     text = "Server: ")
-            self.nombreF.grid(row = 0, column = 0)
-
-            self.nombreE = ttk.Entry(self.subtitulo, textvariable = self.nameServer)
-            self.nombreE.grid(row = 0, column = 1)
-
-            self.versionF = FontLabel(self.subtitulo, text = "Version")
-            self.versionF.grid(row = 0, column = 2)
-
-            self.versionE = ttk.Entry(self.subtitulo, textvariable = self.version)
-            self.versionE.grid(row = 0, column = 3)
-        else:
-            self.subtitulo = FontLabel(self.titular,
-                                       text = f"Server: {self.nameServer.get()}   ver: {self.version.get()}")
-        self.subtitulo.grid(row = 1, column = 0)
-        self.titular.grid(row = 0, column = 0, columnspan = 2)
-        ## Parte botones
-    
-        self.botonesImport = ttk.Frame(self.frame)
-
-        self.botonCarpeta = ttk.Button(self.botonesImport, text = "Importar de Carpeta",
-                                       command=lambda:self.Importar("carpeta"))
-        self.botonCarpeta.grid(row= 0, column = 0, sticky=["W","E"])
-        self.botonArchivo = ttk.Button(self.botonesImport, text = "Importar de Archivo",
-                                       command=lambda:self.Importar("file"))
-        self.botonArchivo.grid(row= 1, column = 0, sticky=["W","E"])
-        self.botonZip = ttk.Button(self.botonesImport, text = "Importar de archivo comprimido",
-                                       command=lambda:self.Importar("zip"))
-        self.botonZip.grid(row= 2, column = 0)
-
-        self.chkButtonDoble = ttk.Checkbutton(self.botonesImport,
-                                              text =  "Evitar Duplicados",
-                                              variable = self.single)
-        self.chkButtonDoble.grid(row = 3, column = 0, sticky=["W","E"])
-        
-        self.botonesImport.grid(row= 1, column = 0, sticky=["W","E"])
-        self.botonesEdit = ttk.Frame(self.frame)
-        if(self.edit):
-            self.botonBorrarServer = ttk.Button(self.botonesEdit, text = "Borrar Server",
-                                                command = lambda: self.Borrar(server = True))
-            self.botonBorrarServer.grid(row = 2, column = 0, sticky=["W","E"])
-            
-        
-        self.botonBorrar = ttk.Button(self.botonesEdit, text = "Desmarcar mod seleccionado",
-                                      command=lambda:self.Borrar())
-        self.botonBorrar.grid(row = 0, column = 0, sticky=["W","E"])
-
-        self.botonBorrarAll = ttk.Button(self.botonesEdit, text = "Desmarcar todos los mods",
-                                      command=lambda:self.Borrar(todo=True))
-        self.botonBorrarAll.grid(row = 1, column = 0, sticky=["W","E"])
-    
-        self.botonesEdit.grid(row = 2, column = 0, sticky=["W","E"])
-
-        
-
-        ## aqui verás los mods que se van a incluir, si hay
-        self.frameLista = ttk.Frame(self.frame)
-        self.frameNumMods = ttk.Frame(self.frameLista)
-        
-        self.numeroDeModsL = FontLabel(self.frameNumMods, text = "Numero de mods:")
-        self.numeroDeModsL.grid(row = 0, column = 0)
-        self.numeroDeModsV = ttk.Label(self.frameNumMods,
-                                       textvariable = self.numeroDeMods)
-        self.numeroDeModsV.grid(row = 0, column = 1)
-
-        self.frameNumMods.grid(row = 0, column = 0)
-        
-        self.lista = tk.Listbox(self.frameLista, width = 50,
-                             height = 10)
-        self.lista.grid(row = 1, column = 0, sticky=("N","S","E","W"))
-
-        self.scroll = ttk.Scrollbar(self.frameLista, orient = tk.VERTICAL,
-                                command = self.lista.yview)
-        self.scroll.grid(row = 1, column = 1, sticky = ("N","S"))
-        
-        self.lista["yscrollcommand"] = self.scroll.set
-        self.lista.bind("<Delete>", lambda e: self.Borrar())
-        
-        self.frameLista.grid(row = 1, column = 1,
-                             rowspan = 2)
-
-        self.separador = ttk.Separator(self.frame, orient = tk.VERTICAL,
-                                       style = "TSeparator")
-        
-        self.separador.grid(row = 3, column = 0, columnspan = 2,
-                            sticky = ("N","S","W","E"), pady = 5)
-    
-
-        self.botones = ttk.Frame(self.frame)
-        self.guardar = ttk.Button(self.botones, text = "Guardar",
-                                  command = lambda:self.Guardar())
-        self.guardar.grid(row= 0,column = 0)
-        self.salir = ttk.Button(self.botones, text = "Salir sin importar",
-                                command=lambda:self.Salir())
-        self.salir.grid(row = 0, column = 1)
-        self.botones.grid(row = 4, column = 0, columnspan = 2, pady = 2)
-        self.frame.pack()
 
     def Borrar(self, todo = False, server = False):
         
