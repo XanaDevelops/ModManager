@@ -20,6 +20,7 @@ FrontEnd de ModManager 2.x
 ### ManagerMods para MC todas versiones v2.0.0
 ### codigo por Daniel G.
 #############
+## test visual studio
 
 import os, sys
 import platform as pf
