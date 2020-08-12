@@ -267,7 +267,6 @@ class FrontEnd(tk.Frame):
         
         print("exitz")
         
-		
     def Crear(self):
         print("Creando servidor\n")
         

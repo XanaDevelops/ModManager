@@ -289,7 +289,7 @@ class ModImporter(tk.Frame):
             self.botonBorrarServer.grid(row = 2, column = 0, sticky=["W","E"])
             
         
-        self.botonBorrar = ttk.Button(self.botonesEdit, text = "Desmarcar Seleccionado",
+        self.botonBorrar = ttk.Button(self.botonesEdit, text = "Desmarcar mod seleccionado",
                                       command=lambda:self.Borrar())
         self.botonBorrar.grid(row = 0, column = 0, sticky=["W","E"])
 
