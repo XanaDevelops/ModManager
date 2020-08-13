@@ -23,7 +23,7 @@
     <br>
     <h2>Descargar</h2>
     <blockquote>
-      <h4>Actualente la versión más reciente es la 2.2.0</h4>
+      <h4>Actualente la versión más reciente es la 2.3.0</h4>
       <a href="https://github.com/XanaDevelops/ModManager/releases/">Ir a la pagina de descargas</a>
     </blockquote>
     <br>
