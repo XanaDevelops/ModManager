@@ -46,7 +46,7 @@ class ModImporter(tk.Frame):
         
         self.ventana = tk.Toplevel()
         self.ventana.title("Importar Mods")
-        #self.ventana.transient(master = parent)
+        #self.ventana.transient(master = parent) ## esto causaba un bug
         self.ventana.grab_set()
         
         ## variables necesarias
