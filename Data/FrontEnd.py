@@ -73,7 +73,7 @@ class FrontEnd(tk.Frame):
 
         
         sys.stdout = Unbuffered(sys.stdout)
-        self.verApp = "2.3.0"
+        self.verApp = "2.3.1"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()
