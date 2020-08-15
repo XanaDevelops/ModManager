@@ -73,7 +73,7 @@ class FrontEnd(tk.Frame):
 
         
         sys.stdout = Unbuffered(sys.stdout)
-        self.verApp = "2.3.1"
+        self.verApp = "2.3.2"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()
@@ -514,9 +514,10 @@ class FrontEnd(tk.Frame):
                              command = lambda: self.CargadorPantalla(0))
         self.bListar.grid(row = 0, column = 2)
 
-        self.bSalir = ttk.Button(self.botones, text = "Salir",
+        '''self.bSalir = ttk.Button(self.botones, text = "Salir",
                              command = lambda: self.parent.destroy())
         self.bSalir.grid(row = 1, column = 0, columnspan = 3)
+        '''
 
         self.botones.grid(row = 4, column = 0)
     
