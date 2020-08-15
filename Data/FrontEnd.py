@@ -74,7 +74,7 @@ class FrontEnd(tk.Frame):
         ##print(sys._MEIPASS, "ruta relativa de exportación") esto me da la ruta relativa de exportación :)
 
         sys.stdout = Unbuffered(sys.stdout)
-        self.verApp = "2.3.2"
+        self.verApp = "2.4"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()

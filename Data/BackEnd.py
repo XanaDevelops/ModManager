@@ -17,7 +17,7 @@ BackEnd de ModManager 2.x
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 ################
-### ManagerMods para MC todas versiones v2.0
+### ManagerMods para MC todas versiones v2.4
 ### codigo por Daniel G.
 #############
 
@@ -76,7 +76,7 @@ class BackEnd():
                 if(os.listdir(origenMods) == os.listdir(modsPath)):## hacer en ModImporter que si se importa de os.getcwd() en vez de crear temp los mueva ahí, solo funciona en modo carpeta y archivos
                    print("Carpetas iguales, no se copia")
                    break
-                if ".jar" in mod:
+                if ".jar" in mod or ".meta" in mod:
                     print("Copiando mod:", mod)
                     shutil.copy((origenMods+"/"+mod), modsPath)
         
@@ -101,14 +101,14 @@ class BackEnd():
 
         ##elimina los mods de /mods
         for mod in os.listdir():
-            if ".jar" in mod:
+            if ".jar" in mod or ".meta" in mod:
                 os.remove(mod)
 
         ## si en los nuevos datos no hay mods los elimina       
         if(newData[2] == "0"):
             print("Server a Vanilla")
             for mod in os.listdir(oldPathMods):
-                if ".jar" in mod:
+                if ".jar" in mod or ".meta" in mod:
                     print("Eliminando mod",mod)
                     os.remove(f"{oldPathMods}/{mod}")
             os.rmdir(oldPathMods)
@@ -118,7 +118,7 @@ class BackEnd():
                 print("crear carpeta y mods")
                 os.mkdir(newData[0])
                 for mod in os.listdir(newData[3]):
-                    if ".jar" in mod:
+                    if ".jar" in mod or ".meta" in mod:
                         print("Copiando mod", mod)
                         shutil.copy((newData[3]+"/"+mod),newData[0])
                 
@@ -165,7 +165,7 @@ class BackEnd():
             print("Server es activo")
             print("Eliminando mods de /mods")
             for mod in os.listdir():
-                if ".jar" in mod:
+                if ".jar" in mod or ".meta" in mod:
                     os.remove(mod)
 
         ##elimina la carpeta
@@ -193,7 +193,7 @@ class BackEnd():
 
         ##En todo caso elimina los mods actuales
         for mod in os.listdir():
-            if ".jar" in mod:
+            if ".jar" in mod or ".meta" in mod:
                 print("eliminando mod",mod,"de /mods")
                 os.remove(mod)
 

@@ -31,7 +31,7 @@ class Instalador():
         ## Detectar SO y por ende si .py o exe
         self.OS = pf.system()
         
-        self.version = "2.3.2"
+        self.version = "2.4"
 
         
         if self.OS == "Windows":

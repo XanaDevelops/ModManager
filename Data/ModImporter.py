@@ -101,6 +101,30 @@ class ModImporter(tk.Frame):
         if(self.nombresMods != []):
             self.lista.insert("end", *self.nombresMods)
         self.numeroDeMods.set(len(self.nombresMods))
+
+    def Recursivo(self, ruta):
+        for mMod in os.listdir(f"{self.rutaCarpeta}/{ruta}"):
+            if(".jar" in mMod or ".meta" in mMod):
+                if mMod in self.nombresMods:
+                    r = False
+                    if(not self.single.get()):
+                        r = mbox.askyesno("Mod repetido",
+                                                f"Parece ser el mod {mMod} ya esta para importar, desea importarlo igualmente?")
+                    if(r):
+                        self.rutasMods.append(f"{self.rutaCarpeta}/{ruta}/{mMod}")
+                        self.nombresMods.append(mMod)
+                else:
+                    self.rutasMods.append(f"{self.rutaCarpeta}/{ruta}/{mMod}")
+                    self.nombresMods.append(mMod)
+            else:
+                print("Comprobando carpeta en carpeta recursividad...")
+                try:
+                    moreDir = os.listdir(f"{self.rutaCarpeta}/{ruta}/{mMod}")
+                    self.Recursivo(f"/{ruta}/{mMod}")
+                except:
+                    print("No es una carpeta RECURSIVA o ", f"ERROR {sys.exc_info()[0]}", sys.exc_info()[1])
+
+
     def Listar(self, rutas, nombres = []):
         if nombres != []:
             mods = nombres[::]
@@ -112,11 +136,12 @@ class ModImporter(tk.Frame):
                 name = ""
                 print(f"x {x}")
                 for y in list(x[::-1]):
-                    #print(f"y {y}")
+                    #print(f"y {y}") ## debug
                     if(y != "/"):
                        name+=y
                     else:
                         break
+                    
                 mods.append(name[::-1])
             print(f"Mods: {mods}")
         if self.rutaCarpeta == "":
@@ -126,9 +151,23 @@ class ModImporter(tk.Frame):
 
             self.rutaCarpeta = ruta[:len(ruta)-n-1]
             print(self.rutaCarpeta)
+
+        print("MODSSS   ", mods) ##debug
+        moreMods = [] #Mas mods que se pueden encontrar en subcarpetas
+        
+       
         for x in mods:
-            if(not ".jar" in x):
-                print("archivo",x,"que no es mod encontrado")
+            if(not ".jar" in x and not ".meta" in x):
+                print("archivo ",x," que no es mod or metadata encontrado, comprobando si es un directorio")
+                try:
+                    dire = os.listdir(f"{self.rutaCarpeta}/{x}")
+                    if not dire == []:
+                        moreMods.append(x)
+                        self.Recursivo(x)
+                        
+
+                except:
+                    print("No es una carpeta o ", f"ERROR {sys.exc_info()[0]}", sys.exc_info()[1])
             else:
                 if x in self.nombresMods:
                     r = False
@@ -313,6 +352,7 @@ class ModImporter(tk.Frame):
                 print("Ok todo\n")
 
                 self.rutaCarpeta = f"{path}/mods/"
+                print("DEBUG" ,os.listdir(self.rutaCarpeta))
                 self.Listar(self.rutaCarpeta, os.listdir(f"{path}/mods/"))
             
                     
