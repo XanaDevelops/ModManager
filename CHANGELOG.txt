@@ -1,5 +1,8 @@
 ------------- Changelog del ManagerMods
 ____________________________________________________
+
+-- 2.4 Recusive version
+	Añadida la función de buscar automáticamente los mods si no estan en la carpeta raíz de la carpeta de importación, no se aplica a importar por archivos
 -- 2.3 Export version
 	Añadida la funcion de exportar los mods presentes en un servidor a una carpeta zip
 	Existe el bug que mientras ModManager siga abierto, no se podrá acceder al zip, pero si copiarlo, moverlo o compartirlo
