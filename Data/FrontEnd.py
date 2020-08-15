@@ -71,7 +71,8 @@ class FrontEnd(tk.Frame):
     def __init__(self, parent):
         print("###### BIENVENIDO A MODMANGER ######")
 
-        
+        ##print(sys._MEIPASS, "ruta relativa de exportación") esto me da la ruta relativa de exportación :)
+
         sys.stdout = Unbuffered(sys.stdout)
         self.verApp = "2.3.2"
         self.parent = parent
