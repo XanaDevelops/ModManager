@@ -51,7 +51,7 @@ class Instalador():
             print("ruta = " + self.path)	
             print("Linux based detectado")
         elif self.OS == "Darwin":
-            self.path = f"/home/{os.getlogin()}/.minecraft/mods" ## a comprovar
+            self.path = f"/home/{os.getlogin()}/.minecraft/mods" ## a comprobar
             print("Mac detectado")
         else:
             self.path = f"~/.minecraft/mods"
@@ -98,6 +98,7 @@ class Instalador():
     def Licencia(self):
         licencia = open('LICENSE')
         print(licencia.read())
+        licencia.close()
         
     def Instalar(self):
         ## mirar que existe minecraft, claro esta
@@ -124,7 +125,71 @@ class Instalador():
             
         print()
         print("Procediendo a instalar la version 2.x de ModManager")
+        ## Primero comprobar las dependencias (linux solo), despues instalar los archivos
         self.Pause()
+
+        if self.Modo == "PY":
+            print("Son necesarias 2 dependencias para ModManager, Tkinter y Pillow (mediante pip3)")
+            print("Se va a comprobar que estan instaladas...")
+            self.Pause()
+            try:
+                import tkinter
+            except:
+                print("Tkinter no se ha podido importar")
+                print("Se procederá a su instalacion, se le pedira su contraseña")
+                try:
+                    if self.OS == "Linux":
+                        subp.run("sudo apt install python3-tk".split(" "))
+                    else:
+                        print("Instalación en Windows no implementada...")
+                        raise Exception
+                except:
+                    print("No se ha podido instalar Tkinter, abortando...")
+                    self.Pause()
+                    sys.exit()
+            
+            try:
+                from PIL import Image, ImageFont, ImageDraw, ImageTk
+            except ModuleNotFoundError:
+                print("Pillow no se encuentra instalado, se instalará\n")
+                try:
+                    print("Instalando Pillow")
+                    if self.OS == "Windows":
+                        err = subp.run("powershell Start-Process pip3 'install Pillow' -Verb runAs".split(" "))
+                        if err.returncode != 0:
+                            raise PermissionError()
+                    else:
+                        subp.run("sudo pip3 install Pillow".split(" "))
+                except Exception or PermissionError:
+                    print("ERROR, pip3 no se encuentra instalado, se debe instalar para continuar")
+                    print("Se le pedirá su contraseña para descargar 'python3-pip'")
+                    try:
+                        if self.OS == "Linux":
+                            subp.run("sudo apt install python3-pip -y".split(" "))
+                        if self.OS == "Windows":
+                            print("Aun no he implementado la forma de instalar pip3 en Windows...")
+                            raise Exception
+                    except PermissionError:
+                        print("No se tienen privilegios necesarios para la instalación")
+                        print("Se le deberia pedir su contraseña")
+                        try:
+                            if self.OS == "Windows":
+                                err = subp.run("powershell Start-Process pip3 'install Pillow' -Verb runAs".split(" "))
+                                if err.returncode != 0:
+                                    raise PermissionError()
+                            if self.OS == "Linux":
+                                err = subp.run("sudo pip3 install Pillow".split(" "))
+                                if err.returncode != 0:
+                                    raise PermissionError()
+                    except:
+                        print("ERROR, no se ha podido descargar pip3, abortando...")
+                        self.Pause()
+                        sys.exit()
+                
+                except:
+                    print("Ha ocurrido un error, no se ha podido instalar Pillow")
+                    self.Pause()
+                    sys.exit()
         try:
             b = os.listdir(self.path+"/data")
             if "data.db" in b:
@@ -165,55 +230,7 @@ class Instalador():
             link.write("\necho Iniciando ModManager")
             link.close()
             os.popen(f"chmod +x {self.desktop}/'Mod Manager.sh'")
-            print("Es necesario descargar 2 dependencias para el ModManager")
-            print("Estas son Tkinter, y Pillow")
-        try:
-            import tkinter
-        except:
-            print("Tkinter no se ha podido importar")
-            print("Se procederá a su instalacion, se le pedira su contraseña")
-            try:
-                subp.run("sudo apt install python3-tk".split(" "))
-            except:
-                print("No se ha podido instalar Tkinter, abortando")
-                self.Pause()
-                sys.exit()
-        try:
-            print("Instalando Pillow")
-            err = subp.run("pip3 install Pillow".split(" "))
-            if err.returncode == 1:
-                raise NameError("pip3 no existe")
-            if err.returncode == 2:
-                raise PermissionError("No se tiene permisos suficientes")
-        except NameError:
-            print("ERROR, pip3 no se encuentra instalado, se debe instalar para continuar")
-            print("Se le pedirá su contraseña para descargar 'python3-pip'")
-            try:
-                if self.OS == "Linux":
-                    subp.run("sudo apt install python3-pip -y".split(" "))
-                if self.OS == "Windows":
-                    print("Aun no he implementado la forma de instalar pip3 en Windows...")
-                    raise Exception
-            except:
-                print("ERROR, no se ha podido descargar pip3, se saldrá del instalador...")
-                self.Pause()
-                sys.exit()
-        except PermissionError:
-            print("No se tienen privilegios necesarios para la instalación")
-            print("Se le deberia pedir su contraseña")
-            try:
-                if self.OS == "Windows":
-                    err = subp.run("powershell Start-Process pip3 'install Pillow' -Verb runAs".split(" "))
-                    if err.returncode != 0:
-                        raise PermissionError()
-                if self.OS == "Linux":
-                    err = subp.run("sudo pip3 install Pillow".split(" "))
-                    if err.returncode != 0:
-                        raise PermissionError()
-            except:
-                print("Ha ocurrido un error, no se ha podido instalar Pillow")
-                self.Pause()
-                sys.exit()
+            
                         
                    
         print("Instalación completada")
