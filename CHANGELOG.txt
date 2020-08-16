@@ -1,6 +1,8 @@
 ------------- Changelog del ManagerMods
 ____________________________________________________
 
+-- 2.4.1
+	Arreglado bug en Ubuntu con ModImporter
 -- 2.4 Recusive version
 	Añadida la función de buscar automáticamente los mods si no estan en la carpeta raíz de la carpeta de importación, no se aplica a importar por archivos
 -- 2.3 Export version
