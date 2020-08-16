@@ -181,10 +181,10 @@ class Instalador():
                                 err = subp.run("sudo pip3 install Pillow".split(" "))
                                 if err.returncode != 0:
                                     raise PermissionError()
-                    except:
-                        print("ERROR, no se ha podido descargar pip3, abortando...")
-                        self.Pause()
-                        sys.exit()
+                        except:
+                            print("ERROR, no se ha podido descargar pip3, abortando...")
+                            self.Pause()
+                            sys.exit()
                 
                 except:
                     print("Ha ocurrido un error, no se ha podido instalar Pillow")
