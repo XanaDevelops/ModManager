@@ -47,6 +47,7 @@ class ModImporter(tk.Frame):
         self.ventana = tk.Toplevel()
         self.ventana.title("Importar Mods")
         #self.ventana.transient(master = parent) ## esto causaba un bug
+        self.ventana.wait_visibility() ## esto deberia corregir otro bug
         self.ventana.grab_set()
         
         ## variables necesarias
