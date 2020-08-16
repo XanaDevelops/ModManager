@@ -128,7 +128,7 @@ class Instalador():
         ## Primero comprobar las dependencias (linux solo), despues instalar los archivos
         self.Pause()
 
-        if self.Modo == "PY":
+        if self.modo == "PY":
             print("Son necesarias 2 dependencias para ModManager, Tkinter y Pillow (mediante pip3)")
             print("Se va a comprobar que estan instaladas...")
             self.Pause()
