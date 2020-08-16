@@ -175,6 +175,10 @@ class Instalador():
                         if self.OS == "Windows":
                             print("Aun no he implementado la forma de instalar pip3 en Windows...")
                             raise Exception()
+                    except:
+                        print("Ha ocurrido un error...")
+                        self.Pause()
+                        sys.exit()
                 
                 except:
                     print("Ha ocurrido un error, no se ha podido instalar Pillow")
