@@ -159,7 +159,10 @@ class Instalador():
                         if err.returncode != 0:
                             raise PermissionError()
                     else:
-                        subp.run("sudo pip3 install Pillow".split(" "))
+                        err = subp.run("sudo pip3 install Pillow".split(" "))
+                        if err.returncode != 0:
+                            raise Exception()
+
                 except Exception or PermissionError:
                     print("ERROR, pip3 no se encuentra instalado, se debe instalar para continuar")
                     print("Se le pedirá su contraseña para descargar 'python3-pip'")
