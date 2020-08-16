@@ -150,7 +150,7 @@ class Instalador():
             
             try:
                 from PIL import Image, ImageFont, ImageDraw, ImageTk
-            except ModuleNotFoundError:
+            except ModuleNotFoundError: ## primero comprobar pip3, luego Pillow
                 print("Pillow no se encuentra instalado, se instalará\n")
                 try:
                     print("Instalando Pillow")
@@ -169,25 +169,12 @@ class Instalador():
                     try:
                         if self.OS == "Linux":
                             subp.run("sudo apt install python3-pip -y".split(" "))
+                            err = subp.run("sudo pip3 install Pillow".split(" "))
+                            if err.returncode != 0:
+                                 raise PermissionError()
                         if self.OS == "Windows":
                             print("Aun no he implementado la forma de instalar pip3 en Windows...")
-                            raise Exception
-                    except PermissionError:
-                        print("No se tienen privilegios necesarios para la instalación")
-                        print("Se le deberia pedir su contraseña")
-                        try:
-                            if self.OS == "Windows":
-                                err = subp.run("powershell Start-Process pip3 'install Pillow' -Verb runAs".split(" "))
-                                if err.returncode != 0:
-                                    raise PermissionError()
-                            if self.OS == "Linux":
-                                err = subp.run("sudo pip3 install Pillow".split(" "))
-                                if err.returncode != 0:
-                                    raise PermissionError()
-                        except:
-                            print("ERROR, no se ha podido descargar pip3, abortando...")
-                            self.Pause()
-                            sys.exit()
+                            raise Exception()
                 
                 except:
                     print("Ha ocurrido un error, no se ha podido instalar Pillow")
