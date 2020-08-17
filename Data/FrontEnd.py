@@ -17,7 +17,7 @@ FrontEnd de ModManager 2.x
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 ################
-### ManagerMods para MC todas versiones v2.3.0
+### ManagerMods para MC todas versiones v2.4.2
 ### codigo por Daniel G.
 #############
 
@@ -74,7 +74,7 @@ class FrontEnd(tk.Frame):
         ##print(sys._MEIPASS, "ruta relativa de exportación") esto me da la ruta relativa de exportación :)
 
         sys.stdout = Unbuffered(sys.stdout)
-        self.verApp = "2.4.1"
+        self.verApp = "2.4.2"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()
