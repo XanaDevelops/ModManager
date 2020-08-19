@@ -1,6 +1,10 @@
-------------- Changelog del ManagerMods
+------------- Changelog de ModManager
 ____________________________________________________
-
+-- 2.5.0 New ModImporter versión
+	Un gran lavado de cara le he realizado a ModImporter, aunque aun queden cosas por pulir, ya esta operativo al nivel de su versión
+	anterior.
+	También se han realizado mejoras varias en diversas partes del codigo como la prevención de ciertos bugs
+	El siguiente paso será reescribir el instalador para que sea más eficiente y no tenga errores
 -- 2.4.1
 	Arreglado bug en Ubuntu con ModImporter
 -- 2.4 Recusive version

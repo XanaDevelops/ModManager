@@ -36,7 +36,7 @@ except:
     sys.exit()
 
 from BackEnd import *
-from ModImporter import *
+from NewModImporter import *
 from data.Style import *
 from data.Custom import CustomFont_Label as FontLabel
 from data.Custom import CustomFont_Message as FontMessage
@@ -74,7 +74,7 @@ class FrontEnd(tk.Frame):
         ##print(sys._MEIPASS, "ruta relativa de exportación") esto me da la ruta relativa de exportación :)
 
         sys.stdout = Unbuffered(sys.stdout)
-        self.verApp = "2.4.2"
+        self.verApp = "2.5.0"
         self.parent = parent
         self.parent.title("ModManager")
         self.OS = pf.system()
@@ -299,18 +299,22 @@ class FrontEnd(tk.Frame):
             self.parent.wait_window(self.modImporter.ventana)
             
             if(self.modImporter.crear):
+                nombre, ver = self.modImporter.nameServer.get(), self.modImporter.version.get()
                 numMods, origenMods = self.modImporter.numMods,self.modImporter.origenMods
-                mbox.showinfo("Mods Añadidos", "Los mods han sido añadidos")     
-                print("exxitzz")
-                self.sql.CrearServer(nombre, ver, str(numMods), origenMods)
+                if numMods != 0:   
+                    self.sql.CrearServer(nombre, ver, str(numMods), origenMods)
+                    mbox.showinfo("Mods Añadidos", "Los mods han sido añadidos")  
+                else:
+                    self.sql.CrearServer(nombre, ver)
+
             elif self.modImporter.cancel:
                 self.CargadorPantalla(0)
                 return
-            else:
-                self.sql.CrearServer(nombre, ver)
+           
                 
         else:
             self.sql.CrearServer(nombre,ver)
+
         self.sql.ActivarServer(nombre)
         mbox.showinfo("EXITO", "Será este el server activo")
         

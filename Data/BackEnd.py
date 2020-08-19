@@ -116,7 +116,10 @@ class BackEnd():
             # si antes era Vanilla crea la carpeta y copia
             if(oldNumMods == "0"):
                 print("crear carpeta y mods")
-                os.mkdir(newData[0])
+                try:
+                    os.mkdir(newData[0])
+                except:
+                    print("La carpeta ya existia, esto no deberia pasar")
                 for mod in os.listdir(newData[3]):
                     if ".jar" in mod or ".meta" in mod:
                         print("Copiando mod", mod)
