@@ -307,6 +307,11 @@ class Instalador():
             shutil.copy("Data/FrontEnd.py", self.path)
             shutil.copy("Data/BackEnd.py", self.path)
             shutil.copy("Data/ModImporter.py", self.path)
+
+        ## debido a 2.5 que se añade una imagen "lupa.jpg" a data/ hay que comprobar que esta en la instalación
+        if not "lupa.jpg" in os.listdir(f"{self.path}/data/"):
+            shutil.copy("Data/data/lupa.jpg", f"{self.path}/data")
+
             
         print("Actualización completada, que lo disfrute")
         self.Pause()
