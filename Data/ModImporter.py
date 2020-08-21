@@ -22,7 +22,7 @@ ModImporter de ModManager 2.x
 #############
 
 ## ModImporter ##
-
+## Obsoleto, Utilizar New ModImporter
 import tkinter as tk
 
 

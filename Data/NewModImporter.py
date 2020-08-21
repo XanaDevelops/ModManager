@@ -118,7 +118,7 @@ class ModImporter(tk.Frame):
         self.lista.delete(0, "end")
         if(self.nombresMods != []):
             for name in self.nombresMods:
-                if busqueda == "" or busqueda in name:
+                if busqueda == "" or busqueda.upper() in name.upper():
                     self.lista.insert("end", name)
         self.numeroDeMods.set(len(self.nombresMods))
 

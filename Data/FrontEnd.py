@@ -92,7 +92,7 @@ class FrontEnd(tk.Frame):
         ## no hace falta
         xOffset = int(self.parent.winfo_screenwidth()/2 - 400/2)
         yOffset = int(self.parent.winfo_screenheight()/2.5 - 320/2)
-        self.parent.geometry(f"400x320+{xOffset}+{yOffset}")
+        self.parent.geometry(f"400x330+{xOffset}+{yOffset}")
         
         
         self.parent.iconphoto(True, tk.PhotoImage(file="data/icono.png"))
@@ -109,9 +109,7 @@ class FrontEnd(tk.Frame):
         self.firmador = ttk.Frame(self.parent)
         self.firma = tk.Label(self.firmador, text= f"Daniel Garcia Vazquez 2020© v{self.verApp}")
         self.firma.grid(row = 0, column = 0)
-        self.acercaDeB = ttk.Button(self.firmador, text = "Acerca de",
-                                    command = lambda:self.AcercaDe())
-        self.acercaDeB.grid(row = 0, column = 1)
+        
         self.firmador.pack(side=tk.BOTTOM)
         
         self.CargadorPantalla(0)
@@ -151,6 +149,28 @@ class FrontEnd(tk.Frame):
         self.nombre = FontLabel(self.about, text="Daniel García Vázquez 2020© GLP3",
                                 size = 11)
         self.nombre.grid(row = 5, column = 0)
+
+    def AtajosTeclado(self):
+        self.atajo = tk.Toplevel(self.parent)
+        self.atajo.title("Atajos de Teclado")
+
+        self.titular = tk.Frame(self.atajo, relief = tk.RAISED, bd=15)
+        self.titulo = FontLabel(self.titular, text = "Ayuda", size=30)
+        self.titulo.grid(row = 0, column = 0)
+        self.titular.grid(row = 0, column = 0)
+        
+        self.Separar(1,self.atajo)
+        self.descripcion = ttk.Frame(self.atajo)
+
+        self.text1 = FontLabel(self.descripcion, text="En la lista de servidores puedes:")
+        self.text1.pack()
+        self.text2 = FontLabel(self.descripcion, text="Con enter activar un servidor")
+        self.text2.pack()
+        self.text3 = FontLabel(self.descripcion, text="Con doble click sobre un servidor podrás editarlo")
+        self.text3.pack()
+        self.text4 = FontLabel(self.descripcion, text="Con suprimir puedes eliminar un servidor")
+        self.text4.pack()
+        self.descripcion.grid(row = 2, column = 0)
         
     def CargadorPantalla(self, nPantalla):
         
@@ -198,9 +218,56 @@ class FrontEnd(tk.Frame):
             print("Solo se encuentra el servidor Vanilla")
         else:
             self.soloVanilla = False
-        
+       
+    def MenuCreator(self, id):
+        if id == 0:
+            self.menuBar0 = tk.Menu(self.pantalla)
+            self.parent.config(menu = self.menuBar0)
+
+            self.serverMenu = tk.Menu(self.menuBar0, tearoff = 0) ## submenu del server
+
+            self.serverMenu.add_command(label = "Crear", command = lambda: self.CargadorPantalla(1))
+            self.serverMenu.add_command(label = "Ver Servidores", command = lambda: self.CargadorPantalla(2))
+            self.serverMenu.add_separator()
+            self.serverMenu.add_command(label = "Salir", command = lambda: self.parent.destroy())
+
+            self.menuAyuda = tk.Menu(self.menuBar0, tearoff = 0)
+            self.menuAyuda.add_command(label = "Atajos de teclado", command = lambda: self.AtajosTeclado())
+            self.menuAyuda.add_separator()
+            self.menuAyuda.add_command(label = "Acerca de ModManager", command = lambda: self.AcercaDe())
+
+            self.menuBar0.add_cascade(label = "ModManager", menu=self.serverMenu)
+            self.menuBar0.add_cascade(label = "Ayuda", menu=self.menuAyuda)
+
+        if id == 1:
+            self.menuBar1 = tk.Menu(self.pantalla)
+            self.parent.config(menu = self.menuBar1)
+
+            self.serverMenu = tk.Menu(self.menuBar1, tearoff = 0) ## submenu del server
+
+            self.serverMenu.add_command(label = "Crear", command = lambda: self.CargadorPantalla(1))
+            self.serverMenu.add_command(label = "Ver Servidores", command = lambda: self.CargadorPantalla(2))
+            self.serverMenu.add_separator()
+            self.serverMenu.add_command(label = "Salir", command = lambda: self.Salir())
+
+            self.listMenu = tk.Menu(self.menuBar1, tearoff = 0)
+            self.listMenu.add_command(label = "Activar Servidor", command = lambda: self.Activar(self.lista.curselection()))
+            self.listMenu.add_command(label = "Editar Servidor", command = lambda: self.Editar(self.lista.curselection()))
+            self.listMenu.add_command(label = "Eliminar Servidor", command = lambda: self.Borrar(self.lista.curselection()))
+
+            self.menuAyuda = tk.Menu(self.menuBar1, tearoff = 0)
+            self.menuAyuda.add_command(label = "Atajos de teclado", command = lambda: self.AtajosTeclado())
+            self.menuAyuda.add_separator()
+            self.menuAyuda.add_command(label = "Acerca de ModManager", command = lambda: self.AcercaDe())
+
+            self.menuBar1.add_cascade(label = "ModManager", menu=self.serverMenu)
+            self.menuBar1.add_cascade(label = "Servidor", menu = self.listMenu)
+            self.menuBar1.add_cascade(label = "Ayuda", menu=self.menuAyuda)
+
     def P_Inicial(self):
         self.pantalla = self.pantallas[0]
+
+        self.MenuCreator(0)
 
         self.titular = tk.Frame(self.pantalla, relief = tk.RAISED, bd=10)
 
@@ -213,7 +280,7 @@ class FrontEnd(tk.Frame):
         self.subTitulo.grid(row = 1, column = 0)
 
         self.titular.grid(row = 0, column = 0)
-
+        
         ##
         self.UpdateData()
         #####
@@ -469,6 +536,7 @@ class FrontEnd(tk.Frame):
         
     def P_Leer(self):
 
+        
         self.titulo = FontLabel(self.pantalla, text = "Selecciona el servidor:")
         self.titulo.grid(row = 0, column = 0, columnspan = 2)
 
@@ -525,6 +593,7 @@ class FrontEnd(tk.Frame):
         '''
 
         self.botones.grid(row = 4, column = 0)
+        self.MenuCreator(1)
     
         
         
