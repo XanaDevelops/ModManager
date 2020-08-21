@@ -1,5 +1,8 @@
 ------------- Changelog de ModManager
 ____________________________________________________
+
+-- 2.5.1 Help version
+	Mejora en la busqueda de mods, ya no es sensible a las mayusculas. Tambien se han hecho cambios a la interfaz de ModManager y añadido una ventana de ayuda
 -- 2.5.0 New ModImporter versión
 	Un gran lavado de cara le he realizado a ModImporter, aunque aun queden cosas por pulir, ya esta operativo al nivel de su versión
 	anterior.
