@@ -406,8 +406,10 @@ class ModImporter(tk.Frame):
         self.MenuContructor()
 
         ##Titulo
-        self.titulo = FontLabel(self.frame, text = "ModImporter", size =40)
+        self.titular = tk.Frame(self.frame, relief = tk.RAISED, bd= 10)
+        self.titulo = FontLabel(self.titular, text = "ModImporter", size =40)
         self.titulo.grid(row = 1, column = 0, columnspan = 2)
+        self.titular.grid(row = 0, column = 0)
 
         self.frameName = ttk.Frame(self.frame)
 

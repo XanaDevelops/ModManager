@@ -399,8 +399,10 @@ class FrontEnd(tk.Frame):
 
         self.pantalla = self.pantallas[1]
         
-        self.test = FontLabel(self.pantalla, text = "Crear Servidor")
+        self.titular = tk.Frame(self.pantalla, relief = tk.RAISED, bd = 10)
+        self.test = FontLabel(self.titular, text = "Crear Servidor", size = 30)
         self.test.grid(row = 0, column = 0)
+        self.titular.grid(row = 0, column = 0)
 
         self.fDatos = ttk.Frame(self.pantalla)
         

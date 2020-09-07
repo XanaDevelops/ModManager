@@ -41,7 +41,10 @@ class CustomFont_Label(Label):
                 
             # Initialize font
             
-            truetype_font = ImageFont.truetype(font_path, size)
+            try:
+                truetype_font = ImageFont.truetype(font_path, size)
+            except:
+                truetype_font = ImageFont.truetype("Data/"+font_path, size)
         
         width, height = truetype_font.getsize(text)
 
@@ -61,7 +64,10 @@ class CustomFont_Message(Label):
                 raise ValueError("Font path can't be None")
                 
             # Initialize font
-            truetype_font = ImageFont.truetype(font_path, size)
+            try:
+                truetype_font = ImageFont.truetype(font_path, size)
+            except:
+                truetype_font = ImageFont.truetype("Data/"+font_path, size)
     
         lines = textwrap.wrap(text, width=width)
 
